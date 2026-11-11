@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tasfia's Calculation World - A smart calculation and Data Science workspace.">
+  <title>Tasfia's Calculation World</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">TC</div>
+      <div>
+        <h2>Tasfia's</h2>
+        <span>Calculation World</span>
+      </div>
+    </div>
+
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="navigation">
+      <button class="nav-link active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+      <button class="nav-link" data-page="scientific"><span>∑</span> Scientific Calculator</button>
+      <button class="nav-link" data-page="statistics"><span>▥</span> Statistics</button>
+      <button class="nav-link" data-page="probability"><span>◉</span> Probability</button>
+      <button class="nav-link" data-page="metrics"><span>◎</span> ML Metrics</button>
+      <button class="nav-link" data-page="matrix"><span>▦</span> Linear Algebra</button>
+      <button class="nav-link" data-page="data"><span>⌁</span> Data Science Tools</button>
+    </nav>
+
+    <div class="nav-label">AI & ADVANCED</div>
+    <nav class="navigation">
+      <button class="nav-link" data-page="ai-solver"><span>✦</span> AI Image Solver <small>PRO</small></button>
+      <button class="nav-link" data-page="ai-assistant"><span>✧</span> AI Assistant <small>PRO</small></button>
+      <button class="nav-link" data-page="dataset-lab"><span>▤</span> Dataset Analyzer</button>
+      <button class="nav-link" data-page="advanced-lab"><span>⌘</span> Research Labs</button>
+    </nav>
+
+    <div class="nav-label">ACCOUNT</div>
+    <nav class="navigation">
+      <button class="nav-link" data-page="plans"><span>♛</span> Membership</button>
+      <button class="nav-link" data-page="account"><span>♙</span> My Account</button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="upgrade-card">
+        <div class="upgrade-icon">✦</div>
+        <h3>Unlock Pro Tools</h3>
+        <p>Explore advanced Data Science features.</p>
+        <button class="btn btn-light btn-small" data-page="plans">Explore Plans</button>
+      </div>
+      <p class="sidebar-footer">© 2026 Tasfia's Calculation World</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-btn" id="menuButton" aria-label="Toggle menu">☰</button>
+        <div>
+          <div class="breadcrumb">Workspace / <span id="pageTitle">Dashboard</span></div>
+          <h1 id="topHeading">Dashboard</h1>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="status-pill"><i></i> All systems ready</span>
+        <button class="profile-mini" data-page="account">T</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <section class="page active" id="dashboard">
+        <div class="welcome-banner">
+          <div class="welcome-content">
+            <span class="eyebrow">YOUR DATA SCIENCE WORKSPACE</span>
+            <h2>Calculate smarter.<br><span>Learn faster.</span></h2>
+            <p>One workspace for calculations, statistics, machine learning and data analysis.</p>
+            <button class="btn btn-primary" data-page="scientific">Start Calculating <span>→</span></button>
+          </div>
+          <div class="welcome-art">
+            <div class="art-circle circle-one"></div>
+            <div class="art-circle circle-two"></div>
+            <div class="art-symbol">∑</div>
+            <span class="floating-symbol symbol-a">π</span>
+            <span class="floating-symbol symbol-b">√x</span>
+            <span class="floating-symbol symbol-c">Σ</span>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <div><span class="eyebrow">QUICK ACCESS</span><h2>Explore your tools</h2></div>
+          <span class="muted">Choose a workspace to begin</span>
+        </div>
+
+        <div class="tool-grid">
+          <button class="tool-card purple" data-page="scientific">
+            <span class="tool-icon">∑</span><span class="tool-tag">MATH</span>
+            <h3>Scientific Calculator</h3><p>Advanced mathematical calculations.</p><span class="card-arrow">↗</span>
+          </button>
+          <button class="tool-card blue" data-page="statistics">
+            <span class="tool-icon">▥</span><span class="tool-tag">ANALYSIS</span>
+            <h3>Statistics</h3><p>Mean, median, mode and more.</p><span class="card-arrow">↗</span>
+          </button>
+          <button class="tool-card teal" data-page="metrics">
+            <span class="tool-icon">◎</span><span class="tool-tag">MACHINE LEARNING</span>
+            <h3>ML Metrics</h3><p>Evaluate classification models.</p><span class="card-arrow">↗</span>
+          </button>
+          <button class="tool-card pink" data-page="dataset-lab">
+            <span class="tool-icon">▤</span><span class="tool-tag">DATA SCIENCE</span>
+            <h3>Dataset Analyzer</h3><p>Explore and understand your data.</p><span class="card-arrow">↗</span>
+          </button>
+          <button class="tool-card orange" data-page="probability">
+            <span class="tool-icon">◉</span><span class="tool-tag">MATHEMATICS</span>
+            <h3>Probability</h3><p>Probability and counting tools.</p><span class="card-arrow">↗</span>
+          </button>
+          <button class="tool-card green" data-page="data">
+            <span class="tool-icon">⌁</span><span class="tool-tag">PREPROCESSING</span>
+            <h3>Data Tools</h3><p>Normalize, scale and encode data.</p><span class="card-arrow">↗</span>
+          </button>
+        </div>
+
+        <div class="dashboard-bottom">
+          <div class="panel">
+            <span class="eyebrow">YOUR WORKSPACE</span>
+            <h3>Built for Data Science students</h3>
+            <p>Practice mathematics, explore datasets and understand machine learning concepts in one place.</p>
+            <button class="btn btn-outline" data-page="advanced-lab">Explore Research Labs →</button>
+          </div>
+          <div class="mini-promo">
+            <span>✦ PREMIUM EXPERIENCE</span>
+            <h3>Take your analysis further.</h3>
+            <p>Explore upcoming AI and research features.</p>
+            <button class="btn btn-light btn-small" data-page="plans">View Membership</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCIENTIFIC CALCULATOR -->
+      <section class="page" id="scientific">
+        <div class="page-intro"><span class="eyebrow">MATHEMATICS</span><h2>Scientific Calculator</h2><p>Perform basic and advanced mathematical calculations.</p></div>
+        <div class="calculator panel">
+          <div class="calc-screen">
+            <div class="calc-label">EXPRESSION</div>
+            <input id="display" type="text" placeholder="Enter a calculation..." autocomplete="off">
+            <div class="calc-label">RESULT</div>
+            <div id="calcResult" class="calc-result">0</div>
+          </div>
+          <div class="keypad">
+            <button class="key function" data-insert="sin(">sin</button>
+            <button class="key function" data-insert="cos(">cos</button>
+            <button class="key function" data-insert="tan(">tan</button>
+            <button class="key function" data-insert="sqrt(">√</button>
+            <button class="key danger" id="clear">AC</button>
+
+            <button class="key function" data-insert="log(">log</button>
+            <button class="key function" data-insert="ln(">ln</button>
+            <button class="key function" data-insert="π">π</button>
+            <button class="key function" data-insert="^">xʸ</button>
+            <button class="key danger" id="delete">DEL</button>
+
+            <button class="key" data-insert="7">7</button>
+            <button class="key" data-insert="8">8</button>
+            <button class="key" data-insert="9">9</button>
+            <button class="key operator" data-insert="/">÷</button>
+            <button class="key operator" data-insert="(">(</button>
+
+            <button class="key" data-insert="4">4</button>
+            <button class="key" data-insert="5">5</button>
+            <button class="key" data-insert="6">6</button>
+            <button class="key operator" data-insert="*">×</button>
+            <button class="key operator" data-insert=")">)</button>
+
+            <button class="key" data-insert="1">1</button>
+            <button class="key" data-insert="2">2</button>
+            <button class="key" data-insert="3">3</button>
+            <button class="key operator" data-insert="-">−</button>
+            <button class="key function" data-insert="!">n!</button>
+
+            <button class="key" data-insert="0">0</button>
+            <button class="key" data-insert=".">.</button>
+            <button class="key" data-insert="e">e</button>
+            <button class="key operator" data-insert="+">+</button>
+            <button class="key equals" id="calculate">=</button>
+          </div>
+          <div id="calcHistory" class="history"><h4>Recent calculations</h4><p>No calculations yet.</p></div>
+        </div>
+      </section>
+
+      <!-- STATISTICS -->
+      <section class="page" id="statistics">
+        <div class="page-intro"><span class="eyebrow">DESCRIPTIVE STATISTICS</span><h2>Statistics Calculator</h2><p>Calculate important statistical measures from your dataset.</p></div>
+        <div class="panel">
+          <h3>Descriptive Statistics</h3>
+          <label>Enter numbers (comma separated)</label>
+          <textarea id="statsInput" rows="3" placeholder="10, 20, 30, 40, 50"></textarea>
+          <button class="btn btn-primary" id="statsCalculate">Calculate Statistics</button>
+          <div id="statsOutput" class="output-box">Your statistical results will appear here.</div>
+        </div>
+        <div class="panel">
+          <h3>Correlation Calculator</h3>
+          <div class="two-columns">
+            <div><label>Variable X</label><textarea id="seriesX" rows="3" placeholder="1, 2, 3, 4, 5"></textarea></div>
+            <div><label>Variable Y</label><textarea id="seriesY" rows="3" placeholder="2, 4, 6, 8, 10"></textarea></div>
+          </div>
+          <button class="btn btn-primary" id="correlationCalculate">Calculate Correlation</button>
+          <div id="correlationOutput" class="output-box">Correlation result will appear here.</div>
+        </div>
+      </section>
+
+      <!-- PROBABILITY -->
+      <section class="page" id="probability">
+        <div class="page-intro"><span class="eyebrow">PROBABILITY THEORY</span><h2>Probability Calculator</h2><p>Calculate probability, permutations, combinations and binomial probability.</p></div>
+        <div class="panel">
+          <h3>Basic Probability</h3>
+          <div class="two-columns">
+            <div><label>Favorable Outcomes</label><input id="favorable" type="number" placeholder="3"></div>
+            <div><label>Total Outcomes</label><input id="total" type="number" placeholder="6"></div>
+          </div>
+          <button class="btn btn-primary" id="basicProbability">Calculate Probability</button>
+          <div id="basicProbabilityOutput" class="output-box">P(A) = Favorable / Total</div>
+        </div>
+        <div class="panel">
+          <h3>Permutation & Combination</h3>
+          <div class="two-columns">
+            <div><label>n</label><input id="nValue" type="number" placeholder="5"></div>
+            <div><label>r</label><input id="rValue" type="number" placeholder="2"></div>
+          </div>
+          <div class="button-row">
+            <button class="btn btn-primary" id="permutationBtn">Permutation</button>
+            <button class="btn btn-outline" id="combinationBtn">Combination</button>
+          </div>
+          <div id="countingOutput" class="output-box">Result will appear here.</div>
+        </div>
+        <div class="panel">
+          <h3>Binomial Probability</h3>
+          <div class="three-columns">
+            <div><label>Trials (n)</label><input id="binN" type="number" placeholder="5"></div>
+            <div><label>Successes (k)</label><input id="binK" type="number" placeholder="2"></div>
+            <div><label>Probability (p)</label><input id="binP" type="number" step="0.01" placeholder="0.5"></div>
+          </div>
+          <button class="btn btn-primary" id="binomialBtn">Calculate</button>
+          <div id="binomialOutput" class="output-box">P(X=k) will appear here.</div>
+        </div>
+      </section>
+
+      <!-- ML METRICS -->
+      <section class="page" id="metrics">
+        <div class="page-intro"><span class="eyebrow">MACHINE LEARNING</span><h2>ML Classification Metrics</h2><p>Evaluate your classification model using a confusion matrix.</p></div>
+        <div class="panel">
+          <h3>Confusion Matrix</h3>
+          <div class="metrics-grid">
+            <div class="metric-input"><label>True Positive (TP)</label><input id="tp" type="number" min="0" value="80"></div>
+            <div class="metric-input"><label>False Positive (FP)</label><input id="fp" type="number" min="0" value="10"></div>
+            <div class="metric-input"><label>False Negative (FN)</label><input id="fn" type="number" min="0" value="5"></div>
+            <div class="metric-input"><label>True Negative (TN)</label><input id="tn" type="number" min="0" value="105"></div>
+          </div>
+          <button class="btn btn-primary" id="metricsCalculate">Evaluate Model</button>
+          <div id="metricsOutput" class="output-box">Your model performance will appear here.</div>
+        </div>
+      </section>
+
+      <!-- LINEAR ALGEBRA -->
+      <section class="page" id="matrix">
+        <div class="page-intro"><span class="eyebrow">LINEAR ALGEBRA</span><h2>Matrix & Vector Calculator</h2><p>Perform common matrix and vector operations.</p></div>
+        <div class="panel">
+          <h3>2 × 2 Matrix Operations</h3>
+          <div class="two-columns">
+            <div><label>Matrix A (row by row)</label><textarea id="matrixA" rows="3">1, 2
+3, 4</textarea></div>
+            <div><label>Matrix B (row by row)</label><textarea id="matrixB" rows="3">5, 6
+7, 8</textarea></div>
+          </div>
+          <div class="button-row">
+            <button class="btn btn-primary" data-matrix="add">A + B</button>
+            <button class="btn btn-outline" data-matrix="subtract">A − B</button>
+            <button class="btn btn-outline" data-matrix="multiply">A × B</button>
+            <button class="btn btn-outline" data-matrix="determinant">Determinant A</button>
+            <button class="btn btn-outline" data-matrix="transpose">Transpose A</button>
+          </div>
+          <div id="matrixOutput" class="output-box">Matrix result will appear here.</div>
+        </div>
+        <div class="panel">
+          <h3>Vector Operations</h3>
+          <div class="two-columns">
+            <div><label>Vector A</label><input id="vectorA" value="1, 2, 3"></div>
+            <div><label>Vector B</label><input id="vectorB" value="4, 5, 6"></div>
+          </div>
+          <button class="btn btn-primary" id="vectorCalculate">Calculate Dot Product</button>
+          <div id="vectorOutput" class="output-box">Result will appear here.</div>
+        </div>
+      </section>
+
+      <!-- DATA SCIENCE TOOLS -->
+      <section class="page" id="data">
+        <div class="page-intro"><span class="eyebrow">DATA PREPROCESSING</span><h2>Data Science Tools</h2><p>Prepare and transform numerical data for analysis and machine learning.</p></div>
+        <div class="panel">
+          <h3>Numerical Data</h3>
+          <label>Enter values (comma separated)</label>
+          <textarea id="dataInput" rows="3" placeholder="10, 20, 30, 40, 50"></textarea>
+          <div class="button-row">
+            <button class="btn btn-primary" id="minMaxBtn">Min-Max Scaling</button>
+            <button class="btn btn-outline" id="zScoreBtn">Z-Score Scaling</button>
+            <button class="btn btn-outline" id="outlierBtn">Detect Outliers</button>
+          </div>
+          <div id="dataOutput" class="output-box">Data results will appear here.</div>
+        </div>
+        <div class="panel">
+          <h3>Dataset Split Calculator</h3>
+          <div class="two-columns">
+            <div><label>Total Rows</label><input id="totalRows" type="number" placeholder="1000"></div>
+            <div><label>Missing Rows</label><input id="missingRows" type="number" placeholder="20"></div>
+          </div>
+          <label>Training Percentage: <strong id="splitLabel">80%</strong></label>
+          <input id="splitPercent" type="range" min="50" max="95" value="80">
+          <button class="btn btn-primary" id="datasetBtn">Calculate Dataset Split</button>
+          <div id="datasetOutput" class="output-box">Split results will appear here.</div>
+        </div>
+        <div class="panel">
+          <h3>Categorical Encoding</h3>
+          <label>Categories (comma separated)</label>
+          <input id="categoryInput" placeholder="Red, Blue, Green, Red">
+          <div class="button-row">
+            <button class="btn btn-primary" id="labelEncodeBtn">Label Encoding</button>
+            <button class="btn btn-outline" id="oneHotBtn">One-Hot Encoding</button>
+          </div>
+          <div id="encodingOutput" class="output-box">Encoding results will appear here.</div>
+        </div>
+      </section>
+
+      <!-- AI IMAGE SOLVER -->
+      <section class="page" id="ai-solver">
+        <div class="page-intro"><span class="eyebrow">PREMIUM FEATURE</span><h2>AI Image Solver <span class="pro-tag">PRO</span></h2><p>Upload a mathematical or Data Science problem image.</p></div>
+        <div class="panel">
+          <label class="upload-area" for="problemImage">
+            <span class="upload-icon">⇧</span><h3>Upload your problem image</h3>
+            <p>Choose a JPG, PNG or WEBP image (maximum 8 MB).</p>
+            <span class="btn btn-outline">Choose Image</span>
+            <input type="file" id="problemImage" accept="image/png,image/jpeg,image/webp" hidden>
+          </label>
+          <img id="imagePreview" class="image-preview" alt="Problem preview" hidden>
+          <label>Instructions (optional)</label>
+          <textarea id="solverInstructions" rows="2" placeholder="Explain the solution step by step..."></textarea>
+          <button class="btn btn-primary" id="solveImageBtn">Prepare Problem</button>
+          <div id="imageSolverOutput" class="output-box">Image upload preview is available. AI image recognition requires a connected AI backend.</div>
+        </div>
+      </section>
+
+      <!-- AI ASSISTANT -->
+      <section class="page" id="ai-assistant">
+        <div class="page-intro"><span class="eyebrow">PREMIUM FEATURE</span><h2>AI Data Science Assistant <span class="pro-tag">PRO</span></h2><p>Your workspace for Data Science questions and research support.</p></div>
+        <div class="panel">
+          <label>Choose a task</label>
+          <select id="assistantMode">
+            <option value="explain">Explain a concept</option>
+            <option value="python">Python code help</option>
+            <option value="statistics">Statistics help</option>
+            <option value="ml">Machine Learning help</option>
+            <option value="research">Research guidance</option>
+          </select>
+          <label>Your question</label>
+          <textarea id="assistantPrompt" rows="5" placeholder="Ask a Data Science question..."></textarea>
+          <button class="btn btn-primary" id="askAssistantBtn">Prepare Request</button>
+          <div id="assistantOutput" class="output-box">A live AI answer requires a secure backend and AI API connection.</div>
+        </div>
+      </section>
+
+      <!-- DATASET ANALYZER -->
+      <section class="page" id="dataset-lab">
+        <div class="page-intro"><span class="eyebrow">DATA ANALYTICS</span><h2>Advanced Dataset Analyzer</h2><p>Upload a CSV dataset and explore its structure and quality.</p></div>
+        <div class="panel">
+          <label class="upload-area" for="datasetFile">
+            <span class="upload-icon">▤</span><h3>Upload CSV Dataset</h3>
+            <p>Select a CSV file from your computer (maximum 10 MB).</p>
+            <span class="btn btn-outline">Browse Dataset</span>
+            <input type="file" id="datasetFile" accept=".csv,text/csv" hidden>
+          </label>
+          <div id="datasetFileInfo" class="output-box">No dataset selected.</div>
+          <div class="button-row">
+            <button class="btn btn-primary" id="datasetProfileBtn">Dataset Profile</button>
+            <button class="btn btn-outline" id="missingAnalysisBtn">Missing Values</button>
+            <button class="btn btn-outline" id="duplicateAnalysisBtn">Duplicates</button>
+            <button class="btn btn-outline" id="outlierAnalysisBtn">Outliers</button>
+            <button class="btn btn-outline" id="correlationAnalysisBtn">Correlation</button>
+            <button class="btn btn-outline" id="visualizationBtn">Visualize</button>
+          </div>
+          <div id="datasetAnalyzerOutput" class="output-box">Upload a CSV dataset to start analysis.</div>
+          <canvas id="datasetChart" height="220"></canvas>
+          <button class="btn btn-outline" id="exportDatasetBtn">Export Clean CSV</button>
+        </div>
+      </section>
+
+      <!-- RESEARCH LABS -->
+      <section class="page" id="advanced-lab">
+        <div class="page-intro"><span class="eyebrow">ADVANCED WORKSPACE</span><h2>Research & Advanced Labs</h2><p>Explore practical statistical and analytical tools.</p></div>
+        <div class="panel">
+          <h3>Linear Regression Lab</h3>
+          <label>X values (comma separated)</label><input id="regX" value="1,2,3,4,5">
+          <label>Y values (comma separated)</label><input id="regY" value="2,4,5,4,6">
+          <button class="btn btn-primary" id="regressionBtn">Calculate Regression</button>
+          <div id="regressionOutput" class="output-box">Slope, intercept and R² will appear here.</div>
+        </div>
+        <div class="panel">
+          <h3>Confidence Interval Calculator</h3>
+          <div class="two-columns">
+            <div><label>Sample Mean</label><input id="ciMean" type="number" value="50"></div>
+            <div><label>Standard Deviation</label><input id="ciSD" type="number" value="10"></div>
+            <div><label>Sample Size</label><input id="ciN" type="number" value="100"></div>
+            <div><label>Confidence Level</label>
+              <select id="ciLevel"><option value="1.645">90%</option><option value="1.96" selected>95%</option><option value="2.576">99%</option></select>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="ciBtn">Calculate Interval</button>
+          <div id="ciOutput" class="output-box">Confidence interval will appear here.</div>
+        </div>
+        <div class="panel">
+          <h3>Normal Distribution</h3>
+          <div class="two-columns">
+            <div><label>Value (x)</label><input id="normalX" type="number" value="60"></div>
+            <div><label>Mean (μ)</label><input id="normalMean" type="number" value="50"></div>
+            <div><label>Standard Deviation (σ)</label><input id="normalSD" type="number" value="10"></div>
+          </div>
+          <button class="btn btn-primary" id="normalBtn">Calculate Z-Score</button>
+          <div id="normalOutput" class="output-box">Z-score will appear here.</div>
+        </div>
+      </section>
+
+      <!-- MEMBERSHIP -->
+      <section class="page" id="plans">
+        <div class="page-intro"><span class="eyebrow">MEMBERSHIP</span><h2>Choose your experience</h2><p>Start free and explore additional features as the platform grows.</p></div>
+        <div class="plans-grid">
+          <div class="plan-card">
+            <span class="plan-label">STARTER</span><h3>Free</h3><div class="price">৳0 <small>/ month</small></div>
+            <p>For everyday learning and calculations.</p>
+            <ul><li>Scientific Calculator</li><li>Statistics & Probability</li><li>ML Metrics</li><li>Basic Data Tools</li></ul>
+            <button class="btn btn-outline plan-button" data-plan="Free">Current Plan</button>
+          </div>
+          <div class="plan-card featured-plan">
+            <span class="plan-label">STUDENT PRO</span><h3>Pro Student</h3><div class="price">৳199 <small>/ month</small></div>
+            <p>For students who want more advanced tools.</p>
+            <ul><li>Everything in Free</li><li>Advanced Dataset Tools</li><li>AI feature access (when connected)</li><li>Research utilities</li><li>PDF reports (planned)</li></ul>
+            <button class="btn btn-primary plan-button" data-plan="Pro Student">Choose Student Pro</button>
+          </div>
+          <div class="plan-card">
+            <span class="plan-label">RESEARCH</span><h3>Pro Researcher</h3><div class="price">৳399 <small>/ month</small></div>
+            <p>For advanced learning and research workflows.</p>
+            <ul><li>Everything in Student Pro</li><li>Research workspace (planned)</li><li>AI assistant (when connected)</li><li>Advanced analysis (planned)</li></ul>
+            <button class="btn btn-outline plan-button" data-plan="Pro Researcher">Choose Researcher</button>
+          </div>
+        </div>
+        <div id="proMessage" class="output-box">Membership is currently a demo. Real payments and subscriptions are not enabled.</div>
+      </section>
+
+      <!-- ACCOUNT -->
+      <section class="page" id="account">
+        <div class="page-intro"><span class="eyebrow">PERSONAL WORKSPACE</span><h2>My Account</h2><p>Manage your local demo profile.</p></div>
+        <div class="panel account-panel">
+          <div class="account-avatar">T</div>
+          <h3>Profile Settings</h3>
+          <label>Display Name</label><input id="displayName" placeholder="Your name">
+          <label>Email (demo)</label><input id="demoEmail" type="email" placeholder="your@email.com">
+          <button class="btn btn-primary" id="saveProfile">Save Profile</button>
+          <div id="profileMessage" class="output-box">Your profile is stored in this browser only.</div>
+        </div>
+      </section>
+
+      <footer class="main-footer">
+        <span>© 2026 Tasfia's Calculation World</span>
+        <span>Made for learners & Data Science enthusiasts ✦</span>
+      </footer>
+    </div>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
