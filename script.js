@@ -80,6 +80,7 @@ const pageTitles = {
   "ai-assistant": "AI Data Science Assistant",
   "dataset-lab": "Dataset Analyzer",
   "advanced-lab": "Research Labs",
+  "research-workspace": "Research Workspace",
   plans: "Membership",
   account: "My Account"
 };
@@ -147,6 +148,7 @@ function calculateExpression(expression) {
     .replace(/\blog\(/g, "Math.log10(")
     .replace(/\bln\(/g, "Math.log(");
 
+  // Factorial of simple numeric values, e.g. 5!
   exp = exp.replace(/(\d+(?:\.\d+)?)!/g, (_, n) => `factorial(${n})`);
 
   if (!/^[0-9+\-*/().,!%^A-Za-z]+$/.test(exp)) {
@@ -269,9 +271,7 @@ $("basicProbability")?.addEventListener("click", () => {
     const p = f / t;
     showMessage("basicProbabilityOutput",
       `<h4>Probability = ${format(p)}</h4><p>${format(p*100)}%</p><p>P(A) = Favorable Outcomes / Total Outcomes</p>`);
-  } catch (error) {
-    showMessage("basicProbabilityOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("basicProbabilityOutput", escapeHTML(error.message)); }
 });
 
 function countingValue(n, r, permutation) {
@@ -288,9 +288,7 @@ function runCounting(permutation) {
     const value = countingValue(n, r, permutation);
     showMessage("countingOutput",
       `<h4>${permutation ? "Permutation (nPr)" : "Combination (nCr)"}</h4><p>Result: <strong>${format(value)}</strong></p>`);
-  } catch (error) {
-    showMessage("countingOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("countingOutput", escapeHTML(error.message)); }
 }
 
 $("permutationBtn")?.addEventListener("click", () => runCounting(true));
@@ -304,9 +302,7 @@ $("binomialBtn")?.addEventListener("click", () => {
     }
     const result = countingValue(n, k, false) * Math.pow(p,k) * Math.pow(1-p,n-k);
     showMessage("binomialOutput", `<h4>Binomial Probability</h4><p>P(X = ${k}) = <strong>${format(result)}</strong></p><p>${format(result*100)}%</p>`);
-  } catch (error) {
-    showMessage("binomialOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("binomialOutput", escapeHTML(error.message)); }
 });
 
 /* =========================================
@@ -337,9 +333,7 @@ $("metricsCalculate")?.addEventListener("click", () => {
         <tr><td>Specificity</td><td>${format(specificity*100)}%</td></tr>
         <tr><td>Total Samples</td><td>${total}</td></tr>
       </table>`);
-  } catch (error) {
-    showMessage("metricsOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("metricsOutput", escapeHTML(error.message)); }
 });
 
 /* =========================================
@@ -388,9 +382,7 @@ document.querySelectorAll("[data-matrix]").forEach(button => {
         }
       }
       showMessage("matrixOutput", `<h4>Result</h4>${matrixHTML(result)}`);
-    } catch (error) {
-      showMessage("matrixOutput", escapeHTML(error.message));
-    }
+    } catch (error) { showMessage("matrixOutput", escapeHTML(error.message)); }
   });
 });
 
@@ -400,9 +392,7 @@ $("vectorCalculate")?.addEventListener("click", () => {
     if (a.length !== b.length) throw new Error("Both vectors must have equal dimensions.");
     const dot = a.reduce((sum,n,i)=>sum+n*b[i],0);
     showMessage("vectorOutput", `<h4>Dot Product</h4><strong>${format(dot)}</strong>`);
-  } catch (error) {
-    showMessage("vectorOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("vectorOutput", escapeHTML(error.message)); }
 });
 
 /* =========================================
@@ -414,9 +404,7 @@ $("minMaxBtn")?.addEventListener("click", () => {
     const a = numbersFrom("dataInput"), min = Math.min(...a), max = Math.max(...a);
     const result = max === min ? a.map(() => 0) : a.map(n => (n-min)/(max-min));
     showMessage("dataOutput", `<h4>Min-Max Scaled Values</h4><p>${result.map(format).join(", ")}</p><p>Range: 0 to 1</p>`);
-  } catch (error) {
-    showMessage("dataOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("dataOutput", escapeHTML(error.message)); }
 });
 
 $("zScoreBtn")?.addEventListener("click", () => {
@@ -425,9 +413,7 @@ $("zScoreBtn")?.addEventListener("click", () => {
     if (sd === 0) throw new Error("Z-score cannot be calculated when all values are equal.");
     const result = a.map(n => (n-m)/sd);
     showMessage("dataOutput", `<h4>Z-Score Values</h4><p>${result.map(format).join(", ")}</p><p>Mean: ${format(m)} | SD: ${format(sd)}</p>`);
-  } catch (error) {
-    showMessage("dataOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("dataOutput", escapeHTML(error.message)); }
 });
 
 $("outlierBtn")?.addEventListener("click", () => {
@@ -439,9 +425,7 @@ $("outlierBtn")?.addEventListener("click", () => {
     const low = q1-1.5*iqr, high = q3+1.5*iqr;
     const outliers = a.filter(n=>n<low || n>high);
     showMessage("dataOutput", `<h4>IQR Outlier Detection</h4><p>Q1: ${format(q1)} | Q3: ${format(q3)}</p><p>IQR: ${format(iqr)}</p><p>Lower limit: ${format(low)} | Upper limit: ${format(high)}</p><p>Outliers: ${outliers.length ? outliers.join(", ") : "None detected"}</p>`);
-  } catch (error) {
-    showMessage("dataOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("dataOutput", escapeHTML(error.message)); }
 });
 
 $("splitPercent")?.addEventListener("input", event => {
@@ -456,9 +440,7 @@ $("datasetBtn")?.addEventListener("click", () => {
     const usable = total-missing;
     const train = Math.floor(usable*pct/100);
     showMessage("datasetOutput", `<h4>Dataset Split</h4><p>Total rows: ${total}</p><p>Missing rows: ${missing}</p><p>Usable rows: ${usable}</p><p>Training rows (${pct}%): ${train}</p><p>Testing rows (${100-pct}%): ${usable-train}</p>`);
-  } catch (error) {
-    showMessage("datasetOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("datasetOutput", escapeHTML(error.message)); }
 });
 
 function categories() {
@@ -472,9 +454,7 @@ $("labelEncodeBtn")?.addEventListener("click", () => {
     const a = categories(), unique = [...new Set(a)];
     const mapping = Object.fromEntries(unique.map((v,i)=>[v,i]));
     showMessage("encodingOutput", `<h4>Label Encoding</h4><p>${JSON.stringify(mapping)}</p><p>Encoded: ${a.map(v=>mapping[v]).join(", ")}</p>`);
-  } catch (error) {
-    showMessage("encodingOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("encodingOutput", escapeHTML(error.message)); }
 });
 
 $("oneHotBtn")?.addEventListener("click", () => {
@@ -482,9 +462,7 @@ $("oneHotBtn")?.addEventListener("click", () => {
     const a = categories(), unique = [...new Set(a)];
     const rows = a.map(v=>unique.map(c=>c===v?1:0));
     showMessage("encodingOutput", `<h4>One-Hot Encoding</h4><p>Categories: ${escapeHTML(unique.join(", "))}</p>${matrixHTML(rows)}`);
-  } catch (error) {
-    showMessage("encodingOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("encodingOutput", escapeHTML(error.message)); }
 });
 
 /* =========================================
@@ -618,9 +596,7 @@ $("datasetProfileBtn")?.addEventListener("click", () => {
       return `<tr><td>${escapeHTML(h)}</td><td>${nums ? "Numeric" : "Text / Mixed"}</td><td>${values.length}</td></tr>`;
     }).join("");
     showMessage("datasetAnalyzerOutput", `<h4>Dataset Profile</h4><p>Rows: ${datasetRows.length} | Columns: ${datasetHeaders.length}</p><table><tr><th>Column</th><th>Type</th><th>Non-empty</th></tr>${details}</table>`);
-  } catch (error) {
-    showMessage("datasetAnalyzerOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("datasetAnalyzerOutput", escapeHTML(error.message)); }
 });
 
 $("missingAnalysisBtn")?.addEventListener("click", () => {
@@ -631,9 +607,7 @@ $("missingAnalysisBtn")?.addEventListener("click", () => {
       return `<tr><td>${escapeHTML(h)}</td><td>${missing}</td><td>${format(missing/datasetRows.length*100)}%</td></tr>`;
     }).join("");
     showMessage("datasetAnalyzerOutput", `<h4>Missing Value Analysis</h4><table><tr><th>Column</th><th>Missing</th><th>Percentage</th></tr>${rows}</table>`);
-  } catch (error) {
-    showMessage("datasetAnalyzerOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("datasetAnalyzerOutput", escapeHTML(error.message)); }
 });
 
 $("duplicateAnalysisBtn")?.addEventListener("click", () => {
@@ -647,9 +621,7 @@ $("duplicateAnalysisBtn")?.addEventListener("click", () => {
       else seen.add(key);
     });
     showMessage("datasetAnalyzerOutput", `<h4>Duplicate Analysis</h4><p>Total duplicate rows: <strong>${duplicates}</strong></p><p>Unique rows: ${seen.size}</p>`);
-  } catch (error) {
-    showMessage("datasetAnalyzerOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("datasetAnalyzerOutput", escapeHTML(error.message)); }
 });
 
 $("outlierAnalysisBtn")?.addEventListener("click", () => {
@@ -667,9 +639,7 @@ $("outlierAnalysisBtn")?.addEventListener("click", () => {
       results.push(`<tr><td>${escapeHTML(h)}</td><td>${out.length}</td><td>${out.map(format).join(", ") || "None"}</td></tr>`);
     });
     showMessage("datasetAnalyzerOutput", `<h4>IQR Outlier Analysis</h4>${results.length ? `<table><tr><th>Column</th><th>Count</th><th>Outlier values</th></tr>${results.join("")}</table>` : "No suitable numeric columns found."}`);
-  } catch (error) {
-    showMessage("datasetAnalyzerOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("datasetAnalyzerOutput", escapeHTML(error.message)); }
 });
 
 $("correlationAnalysisBtn")?.addEventListener("click", () => {
@@ -682,9 +652,7 @@ $("correlationAnalysisBtn")?.addEventListener("click", () => {
       rows.push(`<tr><td>${escapeHTML(a.name)}</td><td>${escapeHTML(b.name)}</td><td>${format(pearson(a.values,b.values))}</td></tr>`);
     }));
     showMessage("datasetAnalyzerOutput", `<h4>Pearson Correlation</h4><table><tr><th>Variable X</th><th>Variable Y</th><th>r</th></tr>${rows.join("")}</table>`);
-  } catch (error) {
-    showMessage("datasetAnalyzerOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("datasetAnalyzerOutput", escapeHTML(error.message)); }
 });
 
 $("visualizationBtn")?.addEventListener("click", () => {
@@ -695,9 +663,7 @@ $("visualizationBtn")?.addEventListener("click", () => {
     const values = numericColumn(index);
     drawChart(values, datasetHeaders[index]);
     showMessage("datasetAnalyzerOutput", `<h4>Column Visualization</h4><p>Showing numeric column: ${escapeHTML(datasetHeaders[index])}</p>`);
-  } catch (error) {
-    showMessage("datasetAnalyzerOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("datasetAnalyzerOutput", escapeHTML(error.message)); }
 });
 
 function drawChart(values, title) {
@@ -739,9 +705,7 @@ $("exportDatasetBtn")?.addEventListener("click", () => {
     a.click();
     URL.revokeObjectURL(url);
     showMessage("datasetAnalyzerOutput", "CSV export started. This version preserves existing rows; it does not automatically clean missing values.");
-  } catch (error) {
-    showMessage("datasetAnalyzerOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("datasetAnalyzerOutput", escapeHTML(error.message)); }
 });
 
 /* =========================================
@@ -763,9 +727,7 @@ $("regressionBtn")?.addEventListener("click", () => {
     const ssTot = y.reduce((s,n)=>s+(n-my)**2,0);
     const r2 = ssTot === 0 ? 1 : 1-ssRes/ssTot;
     showMessage("regressionOutput", `<h4>Linear Regression Results</h4><p>Slope: ${format(slope)}</p><p>Intercept: ${format(intercept)}</p><p>Equation: y = ${format(slope)}x + ${format(intercept)}</p><p>R²: ${format(r2)}</p>`);
-  } catch (error) {
-    showMessage("regressionOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("regressionOutput", escapeHTML(error.message)); }
 });
 
 $("ciBtn")?.addEventListener("click", () => {
@@ -775,9 +737,7 @@ $("ciBtn")?.addEventListener("click", () => {
     if (sd < 0 || n <= 0) throw new Error("Standard deviation must be non-negative and sample size positive.");
     const margin = z*sd/Math.sqrt(n);
     showMessage("ciOutput", `<h4>Confidence Interval</h4><p>Standard Error: ${format(sd/Math.sqrt(n))}</p><p>Margin of Error: ${format(margin)}</p><p>Lower Limit: ${format(m-margin)}</p><p>Upper Limit: ${format(m+margin)}</p><p>Assumes a known population SD or a suitable large-sample normal approximation.</p>`);
-  } catch (error) {
-    showMessage("ciOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("ciOutput", escapeHTML(error.message)); }
 });
 
 $("normalBtn")?.addEventListener("click", () => {
@@ -786,9 +746,7 @@ $("normalBtn")?.addEventListener("click", () => {
     if (sd <= 0) throw new Error("Standard deviation must be greater than zero.");
     const z = (x-m)/sd;
     showMessage("normalOutput", `<h4>Normal Distribution</h4><p>Z-score = (x − μ) / σ</p><p>Z = <strong>${format(z)}</strong></p><p>The value is ${format(Math.abs(z))} standard deviations ${z>=0?"above":"below"} the mean.</p>`);
-  } catch (error) {
-    showMessage("normalOutput", escapeHTML(error.message));
-  }
+  } catch (error) { showMessage("normalOutput", escapeHTML(error.message)); }
 });
 
 /* =========================================
@@ -848,6 +806,8 @@ function escapeHTML(value) {
 loadProfile();
 showPage("dashboard");
 
+
+
 /* =========================================
    ADVANCED DATA QUALITY ENGINE
    Original dataset is preserved; cleaning
@@ -860,6 +820,8 @@ let advancedWorkingRows = [];
 function advancedGetRows() {
   requireDataset();
 
+  // A new upload replaces datasetRows with a new array.
+  // Detect that and start a fresh working copy.
   if (advancedSourceRows !== datasetRows) {
     advancedSourceRows = datasetRows;
     advancedWorkingRows = datasetRows.map(row => [...row]);
@@ -1085,6 +1047,7 @@ function advancedExport() {
 
   const csvCell = value => {
     let text = String(value ?? "");
+    // Prefix formula-like values to reduce spreadsheet formula injection.
     if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
     return '"' + text.replace(/"/g, '""') + '"';
   };
@@ -1254,777 +1217,579 @@ function advancedVisualize() {
 }
 
 $("advancedAnalyzeBtn")?.addEventListener("click", () => {
-  try {
-    advancedAnalyze();
-  } catch (error) {
-    advancedMessage(error.message);
-  }
+  try { advancedAnalyze(); }
+  catch (error) { advancedMessage(error.message); }
 });
 
 $("applyMissingBtn")?.addEventListener("click", () => {
-  try {
-    advancedApplyMissing();
-  } catch (error) {
-    advancedMessage(error.message);
-  }
+  try { advancedApplyMissing(); }
+  catch (error) { advancedMessage(error.message); }
 });
 
 $("removeDuplicatesBtn")?.addEventListener("click", () => {
-  try {
-    advancedRemoveDuplicates();
-  } catch (error) {
-    advancedMessage(error.message);
-  }
+  try { advancedRemoveDuplicates(); }
+  catch (error) { advancedMessage(error.message); }
 });
 
 $("advancedReportBtn")?.addEventListener("click", () => {
-  try {
-    advancedGenerateReport();
-  } catch (error) {
-    advancedMessage(error.message);
-  }
+  try { advancedGenerateReport(); }
+  catch (error) { advancedMessage(error.message); }
 });
 
 $("advancedExportBtn")?.addEventListener("click", () => {
-  try {
-    advancedExport();
-  } catch (error) {
-    advancedMessage(error.message);
-  }
+  try { advancedExport(); }
+  catch (error) { advancedMessage(error.message); }
 });
 
 $("advancedResetBtn")?.addEventListener("click", () => {
-  try {
-    advancedReset();
-  } catch (error) {
-    advancedMessage(error.message);
-  }
+  try { advancedReset(); }
+  catch (error) { advancedMessage(error.message); }
 });
 
 $("advancedVisualizeBtn")?.addEventListener("click", () => {
-  try {
-    advancedVisualize();
-  } catch (error) {
-    advancedMessage(error.message);
-  }
+  try { advancedVisualize(); }
+  catch (error) { advancedMessage(error.message); }
 });
 
 /* =========================================
-   DATAGUARD - INTELLIGENT DATA QUALITY PLATFORM
-   Connected with Dataset Analyzer
-   Uses Advanced Engine Working Dataset
-   Does NOT automatically modify data
+   DATAGUARD INTELLIGENT QUALITY ENGINE
+   Connected to the existing Dataset Analyzer
 ========================================= */
 
 let dgCustomRules = [];
-let dgLastResults = null;
+let dgLatestResult = null;
 
-/* ---------- BASIC HELPERS ---------- */
-
-function dgGetRows() {
-  return advancedGetRows();
-}
-
-function dgMissing(value) {
-  return value === undefined ||
-    value === null ||
-    String(value).trim() === "";
-}
-
-function dgSetText(id, value) {
-  const element = $(id);
-  if (element) element.textContent = value;
-}
-
-function dgSetHTML(id, value) {
-  const element = $(id);
-  if (element) element.innerHTML = value;
-}
-
-function dgStatus(message) {
-  dgSetText("dgStatus", message);
-}
-
-function dgGetNumericValues(rows, columnIndex) {
-  return rows
-    .map(row => row[columnIndex])
-    .filter(value => !dgMissing(value))
-    .map(Number)
-    .filter(Number.isFinite);
-}
-
-/* ---------- COLUMN SELECTOR ---------- */
-
-function dgRefreshColumns() {
+function dgPopulateColumns() {
   const select = $("dgRuleColumn");
-  if (!select) return;
-
-  if (!dataset || !datasetHeaders.length) {
-    select.innerHTML = '<option value="">Upload a dataset first</option>';
-    return;
-  }
-
-  const previousValue = select.value;
-
-  select.innerHTML =
-    '<option value="">Select a column</option>' +
-    datasetHeaders.map((header, index) =>
-      `<option value="${index}">${escapeHTML(header)}</option>`
-    ).join("");
-
-  if (
-    previousValue !== "" &&
-    Number(previousValue) < datasetHeaders.length
-  ) {
-    select.value = previousValue;
-  }
+  if (!select || !Array.isArray(datasetHeaders) || !datasetHeaders.length) return;
+  select.innerHTML = datasetHeaders.map((header, index) =>
+    `<option value="${index}">${escapeHTML(header)}</option>`
+  ).join("");
 }
-
-/* ---------- CUSTOM VALIDATION RULES ---------- */
 
 function dgRenderRules() {
   const container = $("dgRulesList");
   if (!container) return;
-
   if (!dgCustomRules.length) {
     container.innerHTML = "<p>No custom rules added yet.</p>";
     return;
   }
-
   container.innerHTML = dgCustomRules.map((rule, index) => `
     <div class="dg-rule-item">
-      <span>
-        <strong>${escapeHTML(rule.columnName)}</strong>
-        <small>Allowed range: ${rule.min} to ${rule.max}</small>
-      </span>
-      <button
-        type="button"
-        class="btn btn-outline btn-small"
-        data-dg-remove="${index}">
-        Remove
-      </button>
+      <span><strong>${escapeHTML(rule.column)}</strong>: ${rule.min === null ? "No minimum" : "Min " + rule.min} | ${rule.max === null ? "No maximum" : "Max " + rule.max}</span>
+      <button type="button" data-dg-remove="${index}">Remove</button>
     </div>
   `).join("");
+}
+
+function dgDetectOutliers(rows) {
+  const results = [];
+  datasetHeaders.forEach((header, index) => {
+    const values = rows.map(row => row[index])
+      .filter(value => !advancedIsMissing(value) && Number.isFinite(Number(value)))
+      .map(Number);
+    if (values.length < 4) return;
+    const sorted = [...values].sort((a, b) => a - b);
+    const middle = Math.floor(sorted.length / 2);
+    const lowerHalf = sorted.slice(0, middle);
+    const upperHalf = sorted.slice(Math.ceil(sorted.length / 2));
+    const q1 = median(lowerHalf);
+    const q3 = median(upperHalf);
+    const iqr = q3 - q1;
+    const lower = q1 - 1.5 * iqr;
+    const upper = q3 + 1.5 * iqr;
+    const outliers = values.filter(value => value < lower || value > upper);
+    if (outliers.length) results.push({ column: header, count: outliers.length, values: outliers.slice(0, 8), lower, upper });
+  });
+  return results;
+}
+
+function dgValidateRules(rows) {
+  return dgCustomRules.map(rule => {
+    const violations = [];
+    rows.forEach((row, rowIndex) => {
+      const value = row[rule.index];
+      if (advancedIsMissing(value)) return;
+      const numericValue = Number(value);
+      if (!Number.isFinite(numericValue)) {
+        violations.push({ row: rowIndex + 1, value, reason: "Not numeric" });
+      } else if (rule.min !== null && numericValue < rule.min) {
+        violations.push({ row: rowIndex + 1, value, reason: "Below minimum" });
+      } else if (rule.max !== null && numericValue > rule.max) {
+        violations.push({ row: rowIndex + 1, value, reason: "Above maximum" });
+      }
+    });
+    return { column: rule.column, violations };
+  });
+}
+
+function dgRunValidation() {
+  requireDataset();
+  const rows = advancedGetRows();
+  if (!rows.length) throw new Error("The working dataset is empty.");
+
+  const quality = advancedQuality(rows);
+  const totalCells = rows.length * datasetHeaders.length;
+  let totalMissing = 0;
+  const missingByColumn = [];
+
+  datasetHeaders.forEach((header, index) => {
+    const count = rows.filter(row => advancedIsMissing(row[index])).length;
+    totalMissing += count;
+    if (count) missingByColumn.push({ column: header, count });
+  });
+
+  const seen = new Set();
+  let duplicates = 0;
+  rows.forEach(row => {
+    const key = JSON.stringify(row);
+    if (seen.has(key)) duplicates++;
+    else seen.add(key);
+  });
+
+  const outliers = dgDetectOutliers(rows);
+  const rules = dgValidateRules(rows);
+  const totalOutliers = outliers.reduce((sum, item) => sum + item.count, 0);
+  const totalViolations = rules.reduce((sum, item) => sum + item.violations.length, 0);
+  const issueCount = totalMissing + duplicates + totalOutliers + totalViolations;
+
+  dgLatestResult = { rows: rows.length, columns: datasetHeaders.length, quality, totalCells, totalMissing, duplicates, outliers, totalOutliers, rules, totalViolations, issueCount, missingByColumn };
+
+  $("dgScore").textContent = quality.score.toFixed(2);
+  $("dgIssues").textContent = issueCount;
+  $("dgOutliers").textContent = totalOutliers;
+  $("dgViolations").textContent = totalViolations;
+  $("dgProgress").style.width = quality.score + "%";
+  $("dgScoreLabel").textContent = quality.score + "/100";
+  $("dgStatus").textContent = issueCount ? "Issues detected" : "Validation passed";
+
+  let findings = `
+    <p><strong>Dataset:</strong> ${rows.length} rows × ${datasetHeaders.length} columns</p>
+    <p class="${totalMissing ? "dg-warning" : "dg-good"}">Missing values: <strong>${totalMissing}</strong></p>
+    <p class="${duplicates ? "dg-warning" : "dg-good"}">Duplicate rows: <strong>${duplicates}</strong></p>
+    <p class="${totalOutliers ? "dg-warning" : "dg-good"}">Outliers: <strong>${totalOutliers}</strong></p>
+    <p class="${totalViolations ? "dg-danger" : "dg-good"}">Custom rule violations: <strong>${totalViolations}</strong></p>
+  `;
+  if (missingByColumn.length) {
+    findings += "<h4>Missing Values by Column</h4><ul>" + missingByColumn.map(item => `<li>${escapeHTML(item.column)}: ${item.count}</li>`).join("") + "</ul>";
+  }
+  if (outliers.length) {
+    findings += "<h4>Outlier Details</h4><ul>" + outliers.map(item => `<li>${escapeHTML(item.column)}: ${item.count} unusual value(s)</li>`).join("") + "</ul>";
+  }
+  if (totalViolations) {
+    findings += "<h4>Custom Rule Violations</h4><ul>" + rules.filter(rule => rule.violations.length).map(rule => `<li>${escapeHTML(rule.column)}: ${rule.violations.length} violation(s)</li>`).join("") + "</ul>";
+  }
+  $("dgFindings").innerHTML = findings;
+
+  const recommendations = [];
+  if (totalMissing) recommendations.push("Review missing values and choose an appropriate imputation strategy.");
+  if (duplicates) recommendations.push("Inspect duplicate records and remove unnecessary duplicates.");
+  if (totalOutliers) recommendations.push("Review unusual numeric values. Outliers may be valid observations, so do not remove them automatically.");
+  if (totalViolations) recommendations.push("Review custom rule violations and correct invalid values where appropriate.");
+  if (!recommendations.length) recommendations.push("No issues were detected by the current checks. Continue monitoring data quality.");
+  $("dgRecommendations").innerHTML = "<ul>" + recommendations.map(item => `<li>${escapeHTML(item)}</li>`).join("") + "</ul>";
+  dgGenerateReport();
+  return dgLatestResult;
+}
+
+function dgGenerateReport() {
+  const result = dgLatestResult;
+  if (!result) throw new Error("Run validation before generating a report.");
+  const status = result.issueCount === 0 ? "No issues detected by current checks" : result.issueCount + " issue(s) detected";
+  $("dgFullReport").innerHTML = `
+    <h4>DataGuard Quality Assessment</h4>
+    <p><strong>Validation Status:</strong> ${status}</p>
+    <p><strong>Quality Score:</strong> ${result.quality.score}/100</p>
+    <p><strong>Completeness:</strong> ${result.quality.completeness}%</p>
+    <p><strong>Total Rows:</strong> ${result.rows}</p>
+    <p><strong>Total Columns:</strong> ${result.columns}</p>
+    <p><strong>Total Cells:</strong> ${result.totalCells}</p>
+    <p><strong>Missing Values:</strong> ${result.totalMissing}</p>
+    <p><strong>Duplicate Rows:</strong> ${result.duplicates}</p>
+    <p><strong>Detected Outliers:</strong> ${result.totalOutliers}</p>
+    <p><strong>Custom Rule Violations:</strong> ${result.totalViolations}</p>
+    <p><strong>Report Generated:</strong> ${new Date().toLocaleString()}</p>
+    <p class="dg-good">The report describes the current working dataset. The original uploaded dataset remains unchanged.</p>
+  `;
+}
+
+function dgExportCSV() {
+  const rows = advancedGetRows();
+  const csvCell = value => {
+    let text = String(value ?? "");
+    if (/^[\s]*[=+@]/.test(text) || /^-\d/.test(text)) text = "'" + text;
+    return '"' + text.replace(/"/g, '""') + '"';
+  };
+  const csv = [datasetHeaders.map(csvCell).join(","), ...rows.map(row => datasetHeaders.map((_, index) => csvCell(row[index])).join(","))].join("\r\n");
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "dataguard-validated-dataset.csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 $("dgAddRuleBtn")?.addEventListener("click", () => {
   try {
     requireDataset();
-
-    const columnIndex = $("dgRuleColumn").value;
-    const minInput = $("dgMinValue").value;
-    const maxInput = $("dgMaxValue").value;
-
-    if (columnIndex === "") {
-      throw new Error("Please select a column.");
-    }
-
-    if (minInput.trim() === "" || maxInput.trim() === "") {
-      throw new Error("Please enter both minimum and maximum values.");
-    }
-
-    const min = Number(minInput);
-    const max = Number(maxInput);
-
-    if (!Number.isFinite(min) || !Number.isFinite(max)) {
-      throw new Error("Please enter valid numeric limits.");
-    }
-
-    if (min > max) {
-      throw new Error("Minimum value cannot be greater than maximum value.");
-    }
-
-    const index = Number(columnIndex);
-
-    if (!advancedIsNumericColumn(dgGetRows(), index)) {
-      throw new Error("Selected column must contain numeric values.");
-    }
-
-    const exists = dgCustomRules.some(rule =>
-      rule.columnIndex === index
-    );
-
-    if (exists) {
-      throw new Error("A rule already exists for this column.");
-    }
-
-    dgCustomRules.push({
-      columnIndex: index,
-      columnName: datasetHeaders[index],
-      min,
-      max
-    });
-
+    dgPopulateColumns();
+    const index = Number($("dgRuleColumn").value);
+    if (!Number.isInteger(index) || !datasetHeaders[index]) throw new Error("Please select a valid column.");
+    const minText = $("dgMinValue").value.trim();
+    const maxText = $("dgMaxValue").value.trim();
+    if (minText === "" && maxText === "") throw new Error("Enter at least a minimum or maximum value.");
+    const min = minText === "" ? null : Number(minText);
+    const max = maxText === "" ? null : Number(maxText);
+    if ((min !== null && !Number.isFinite(min)) || (max !== null && !Number.isFinite(max))) throw new Error("Enter valid numeric limits.");
+    if (min !== null && max !== null && min > max) throw new Error("Minimum value cannot exceed maximum value.");
+    if (dgCustomRules.some(rule => rule.index === index)) throw new Error("A rule already exists for this column. Remove it first.");
+    dgCustomRules.push({ index, column: datasetHeaders[index], min, max });
     dgRenderRules();
-
     $("dgMinValue").value = "";
     $("dgMaxValue").value = "";
-
-    dgStatus("Custom rule added");
-
+    showMessage("dgFindings", "Custom validation rule added. Run validation to check your dataset.");
   } catch (error) {
-    dgStatus(error.message);
+    showMessage("dgFindings", escapeHTML(error.message));
   }
 });
 
 $("dgRulesList")?.addEventListener("click", event => {
   const button = event.target.closest("[data-dg-remove]");
   if (!button) return;
-
-  const index = Number(button.dataset.dgRemove);
-
-  if (Number.isInteger(index)) {
-    dgCustomRules.splice(index, 1);
-    dgRenderRules();
-
-    if (dataset) {
-      dgStatus("Custom rule removed. Run validation again.");
-    }
-  }
+  dgCustomRules.splice(Number(button.dataset.dgRemove), 1);
+  dgRenderRules();
+  dgLatestResult = null;
+  $("dgStatus").textContent = "Rules updated";
 });
-
-/* ---------- AUTOMATED VALIDATION ---------- */
-
-function dgRunValidation() {
-  const rows = dgGetRows();
-  const headers = datasetHeaders;
-
-  if (!rows.length || !headers.length) {
-    throw new Error("Your dataset is empty.");
-  }
-
-  let missingCells = 0;
-  let duplicateRows = 0;
-  let outlierCount = 0;
-  let inconsistentCells = 0;
-  let ruleViolations = 0;
-
-  const columnFindings = [];
-  const recommendations = [];
-
-  /* Missing values */
-
-  headers.forEach((header, columnIndex) => {
-    const missing = rows.filter(row =>
-      dgMissing(row[columnIndex])
-    ).length;
-
-    missingCells += missing;
-
-    if (missing > 0) {
-      columnFindings.push({
-        column: header,
-        issue: "Missing values",
-        count: missing
-      });
-    }
-  });
-
-  /* Duplicate rows */
-
-  const seen = new Set();
-
-  rows.forEach(row => {
-    const key = JSON.stringify(row);
-
-    if (seen.has(key)) {
-      duplicateRows++;
-    } else {
-      seen.add(key);
-    }
-  });
-
-  /* Numeric consistency and outliers */
-
-  headers.forEach((header, columnIndex) => {
-    const values = rows
-      .map(row => row[columnIndex])
-      .filter(value => !dgMissing(value));
-
-    if (!values.length) return;
-
-    const numericValues = values.filter(value =>
-      Number.isFinite(Number(value))
-    );
-
-    const numericRatio = numericValues.length / values.length;
-
-    const isNumeric = numericRatio === 1;
-
-    if (numericRatio > 0 && numericRatio < 1) {
-      const inconsistent = values.length - numericValues.length;
-
-      inconsistentCells += inconsistent;
-
-      columnFindings.push({
-        column: header,
-        issue: "Mixed data types",
-        count: inconsistent
-      });
-    }
-
-    if (isNumeric && numericValues.length >= 4) {
-      const numbers = numericValues.map(Number);
-      const sorted = [...numbers].sort((a, b) => a - b);
-
-      const q1 = median(
-        sorted.slice(0, Math.floor(sorted.length / 2))
-      );
-
-      const q3 = median(
-        sorted.slice(Math.ceil(sorted.length / 2))
-      );
-
-      const iqr = q3 - q1;
-
-      const lower = q1 - 1.5 * iqr;
-      const upper = q3 + 1.5 * iqr;
-
-      const outliers = numbers.filter(value =>
-        value < lower || value > upper
-      );
-
-      outlierCount += outliers.length;
-
-      if (outliers.length) {
-        columnFindings.push({
-          column: header,
-          issue: "Potential outliers",
-          count: outliers.length
-        });
-      }
-    }
-  });
-
-  /* Custom range validation */
-
-  dgCustomRules.forEach(rule => {
-    rows.forEach(row => {
-      const value = row[rule.columnIndex];
-
-      if (dgMissing(value)) return;
-
-      const number = Number(value);
-
-      if (
-        !Number.isFinite(number) ||
-        number < rule.min ||
-        number > rule.max
-      ) {
-        ruleViolations++;
-      }
-    });
-
-    if (ruleViolations > 0) {
-      // Detailed violations are counted below.
-    }
-  });
-
-  const totalCells = rows.length * headers.length;
-
-  const completeness = totalCells
-    ? (totalCells - missingCells) / totalCells
-    : 0;
-
-  const duplicateFreeRate = rows.length
-    ? (rows.length - duplicateRows) / rows.length
-    : 1;
-
-  const consistencyRate = totalCells
-    ? (totalCells - inconsistentCells) / totalCells
-    : 1;
-
-  const qualityScore = Math.max(0, Math.min(100,
-    completeness * 50 +
-    duplicateFreeRate * 25 +
-    consistencyRate * 25
-  ));
-
-  const totalIssues =
-    missingCells +
-    duplicateRows +
-    outlierCount +
-    inconsistentCells +
-    ruleViolations;
-
-  /* Recommendations */
-
-  if (missingCells > 0) {
-    recommendations.push(
-      "Missing values detected. Review the Advanced Data Quality Engine and choose a suitable treatment strategy."
-    );
-  }
-
-  if (duplicateRows > 0) {
-    recommendations.push(
-      "Duplicate records detected. Review duplicate rows before removing them."
-    );
-  }
-
-  if (outlierCount > 0) {
-    recommendations.push(
-      "Potential outliers detected using the IQR method. Investigate unusual values before modifying them."
-    );
-  }
-
-  if (inconsistentCells > 0) {
-    recommendations.push(
-      "Mixed data types detected. Check whether numeric columns contain text or incorrectly formatted values."
-    );
-  }
-
-  if (ruleViolations > 0) {
-    recommendations.push(
-      "Custom validation violations detected. Review values outside your defined numeric ranges."
-    );
-  }
-
-  if (!totalIssues) {
-    recommendations.push(
-      "No issues were detected by the current validation checks. Your dataset passed the available checks."
-    );
-  }
-
-  if (qualityScore < 70) {
-    recommendations.push(
-      "Overall quality score is low. Review the findings and prioritize missing values and consistency issues."
-    );
-  } else if (qualityScore < 90) {
-    recommendations.push(
-      "Dataset quality is moderate. Review the detected issues to improve reliability."
-    );
-  } else {
-    recommendations.push(
-      "Dataset quality is strong according to the current rule-based scoring method."
-    );
-  }
-
-  dgLastResults = {
-    rows: rows.length,
-    columns: headers.length,
-    missingCells,
-    duplicateRows,
-    outlierCount,
-    inconsistentCells,
-    ruleViolations,
-    totalIssues,
-    qualityScore: Math.round(qualityScore * 100) / 100,
-    completeness: Math.round(completeness * 10000) / 100,
-    findings: columnFindings,
-    recommendations
-  };
-
-  /* Update dashboard metrics */
-
-  dgSetText("dgScore", dgLastResults.qualityScore.toFixed(2));
-  dgSetText("dgIssues", totalIssues);
-  dgSetText("dgOutliers", outlierCount);
-  dgSetText("dgViolations", ruleViolations);
-
-  const progress = $("dgProgress");
-
-  if (progress) {
-    progress.style.width = qualityScore + "%";
-  }
-
-  dgSetText(
-    "dgScoreLabel",
-    dgLastResults.qualityScore + "/100 Quality Score"
-  );
-
-  dgStatus("Validation completed");
-
-  dgRenderFindings();
-  dgRenderRecommendations();
-  dgGenerateReport();
-
-  return dgLastResults;
-}
-
-/* ---------- FINDINGS ---------- */
-
-function dgRenderFindings() {
-  if (!dgLastResults) return;
-
-  const result = dgLastResults;
-
-  let html = `
-    <p><strong>Validation Summary</strong></p>
-    <p>Rows inspected: ${result.rows}</p>
-    <p>Columns inspected: ${result.columns}</p>
-    <p>Missing cells: ${result.missingCells}</p>
-    <p>Duplicate rows: ${result.duplicateRows}</p>
-    <p>Potential outliers: ${result.outlierCount}</p>
-    <p>Mixed-type cells: ${result.inconsistentCells}</p>
-    <p>Custom rule violations: ${result.ruleViolations}</p>
-    <hr>
-    <h4>Detailed Findings</h4>
-  `;
-
-  if (!result.findings.length) {
-    html += "<p>No column-level issues detected.</p>";
-  } else {
-    html += `
-      <table>
-        <thead>
-          <tr>
-            <th>Column</th>
-            <th>Issue</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${result.findings.map(item => `
-            <tr>
-              <td>${escapeHTML(item.column)}</td>
-              <td>${escapeHTML(item.issue)}</td>
-              <td>${item.count}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    `;
-  }
-
-  dgSetHTML("dgFindings", html);
-}
-
-/* ---------- RECOMMENDATIONS ---------- */
-
-function dgRenderRecommendations() {
-  if (!dgLastResults) return;
-
-  const html = `
-    <ul>
-      ${dgLastResults.recommendations.map(item =>
-        `<li>${escapeHTML(item)}</li>`
-      ).join("")}
-    </ul>
-  `;
-
-  dgSetHTML("dgRecommendations", html);
-}
-
-/* ---------- FULL QUALITY REPORT ---------- */
-
-function dgGenerateReport() {
-  if (!dgLastResults) {
-    dgRunValidation();
-    return;
-  }
-
-  const result = dgLastResults;
-
-  const html = `
-    <div class="dg-full-report-content">
-      <h4>DataGuard Quality Assessment Report</h4>
-
-      <p><strong>Quality Score:</strong>
-        ${result.qualityScore}/100
-      </p>
-
-      <p><strong>Dataset Size:</strong>
-        ${result.rows} rows × ${result.columns} columns
-      </p>
-
-      <p><strong>Completeness:</strong>
-        ${result.completeness}%
-      </p>
-
-      <hr>
-
-      <h4>Validation Statistics</h4>
-
-      <table>
-        <tbody>
-          <tr>
-            <td>Missing Cells</td>
-            <td>${result.missingCells}</td>
-          </tr>
-          <tr>
-            <td>Duplicate Rows</td>
-            <td>${result.duplicateRows}</td>
-          </tr>
-          <tr>
-            <td>Potential Outliers</td>
-            <td>${result.outlierCount}</td>
-          </tr>
-          <tr>
-            <td>Mixed-Type Cells</td>
-            <td>${result.inconsistentCells}</td>
-          </tr>
-          <tr>
-            <td>Custom Rule Violations</td>
-            <td>${result.ruleViolations}</td>
-          </tr>
-          <tr>
-            <td>Total Issues</td>
-            <td>${result.totalIssues}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <hr>
-
-      <h4>Recommendations</h4>
-
-      <ul>
-        ${result.recommendations.map(item =>
-          `<li>${escapeHTML(item)}</li>`
-        ).join("")}
-      </ul>
-
-      <p>
-        Assessment method: Rule-based validation,
-        IQR outlier detection and weighted quality scoring.
-      </p>
-
-      <p>
-        DataGuard does not automatically modify dataset values.
-      </p>
-    </div>
-  `;
-
-  dgSetHTML("dgFullReport", html);
-}
-
-/* ---------- CSV EXPORT ---------- */
-
-function dgExportCSV() {
-  const rows = dgGetRows();
-
-  if (!dgLastResults) {
-    dgRunValidation();
-  }
-
-  const csvCell = value => {
-    let text = String(value ?? "");
-
-    if (/^[\s]*[=+\-@]/.test(text)) {
-      text = "'" + text;
-    }
-
-    return '"' + text.replace(/"/g, '""') + '"';
-  };
-
-  const csv = [
-    datasetHeaders.map(csvCell).join(","),
-    ...rows.map(row =>
-      datasetHeaders.map((_, index) =>
-        csvCell(row[index])
-      ).join(",")
-    )
-  ].join("\r\n");
-
-  const blob = new Blob(["\uFEFF" + csv], {
-    type: "text/csv;charset=utf-8;"
-  });
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = "dataguard-validated-dataset.csv";
-
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  URL.revokeObjectURL(url);
-
-  dgStatus("Validated dataset export started");
-}
-
-/* ---------- BUTTON EVENTS ---------- */
 
 $("dgRunBtn")?.addEventListener("click", () => {
-  try {
-    requireDataset();
-    dgRefreshColumns();
-    dgRunValidation();
-  } catch (error) {
-    dgStatus(error.message);
-  }
-});
-
-$("dgRefreshBtn")?.addEventListener("click", () => {
-  try {
-    requireDataset();
-    dgRefreshColumns();
-    dgRunValidation();
-  } catch (error) {
-    dgStatus(error.message);
-  }
+  try { dgPopulateColumns(); dgRunValidation(); }
+  catch (error) { $("dgStatus").textContent = "Validation unavailable"; showMessage("dgFindings", escapeHTML(error.message)); }
 });
 
 $("dgReportBtn")?.addEventListener("click", () => {
-  try {
-    requireDataset();
+  try { dgGenerateReport(); }
+  catch (error) { showMessage("dgFullReport", escapeHTML(error.message)); }
+});
 
-    if (!dgLastResults) {
-      dgRunValidation();
-    } else {
-      dgGenerateReport();
-    }
-
-    dgStatus("Quality report generated");
-  } catch (error) {
-    dgStatus(error.message);
-  }
+$("dgRefreshBtn")?.addEventListener("click", () => {
+  try { dgRunValidation(); }
+  catch (error) { showMessage("dgFindings", escapeHTML(error.message)); }
 });
 
 $("dgExportBtn")?.addEventListener("click", () => {
-  try {
-    requireDataset();
-    dgExportCSV();
-  } catch (error) {
-    dgStatus(error.message);
-  }
+  try { dgExportCSV(); }
+  catch (error) { showMessage("dgFindings", escapeHTML(error.message)); }
 });
-
-/* ---------- DATASET CONNECTION ---------- */
 
 $("datasetFile")?.addEventListener("change", () => {
   setTimeout(() => {
-    if (dataset && datasetRows.length) {
-      dgCustomRules = [];
-      dgLastResults = null;
+    dgCustomRules = [];
+    dgLatestResult = null;
+    dgPopulateColumns();
+    dgRenderRules();
+    if ($("dgStatus")) $("dgStatus").textContent = dataset ? "Dataset connected" : "Waiting for dataset";
+    ["dgScore", "dgIssues", "dgOutliers", "dgViolations"].forEach(id => { if ($(id)) $(id).textContent = "--"; });
+    if ($("dgProgress")) $("dgProgress").style.width = "0%";
+    if ($("dgScoreLabel")) $("dgScoreLabel").textContent = "Not analyzed";
+  }, 150);
+});
 
-      dgRefreshColumns();
-      dgRenderRules();
 
-      dgSetText("dgScore", "--");
-      dgSetText("dgIssues", "--");
-      dgSetText("dgOutliers", "--");
-      dgSetText("dgViolations", "--");
-      dgSetText("dgScoreLabel", "Not analyzed");
+/* =========================================
+   RESEARCH WORKSPACE - INDEPENDENT MODULE
+   Generic academic / thesis project workspace
+========================================= */
+const rwState = {
+  originalRows: [],
+  rows: [],
+  headers: [],
+  fileName: "",
+  lastExperiment: null,
+  lastEDA: null,
+  lastFeatures: null
+};
 
-      const progress = $("dgProgress");
-      if (progress) progress.style.width = "0%";
+function rwEscape(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+}
 
-      dgSetHTML(
-        "dgFindings",
-        "Run validation to inspect your dataset."
-      );
+function rwParseCSV(text) {
+  const lines = [];
+  let row = [], cell = "", quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === '"') {
+      if (quoted && text[i + 1] === '"') { cell += '"'; i++; }
+      else quoted = !quoted;
+    } else if (ch === "," && !quoted) {
+      row.push(cell); cell = "";
+    } else if ((ch === "\n" || ch === "\r") && !quoted) {
+      if (ch === "\r" && text[i + 1] === "\n") i++;
+      row.push(cell); cell = "";
+      if (row.some(v => String(v).trim() !== "")) lines.push(row);
+      row = [];
+    } else cell += ch;
+  }
+  row.push(cell);
+  if (row.some(v => String(v).trim() !== "")) lines.push(row);
+  if (lines.length < 2) throw new Error("The CSV must contain a header row and at least one data row.");
+  const headers = lines[0].map((h, i) => String(h).trim() || `Column_${i + 1}`);
+  const rows = lines.slice(1).map(line => {
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = String(line[i] ?? "").trim(); });
+    return obj;
+  });
+  return { headers, rows };
+}
 
-      dgSetHTML(
-        "dgRecommendations",
-        "Recommendations will appear after validation."
-      );
+function rwNumericValues(column, rows = rwState.rows) {
+  return rows.map(row => row[column]).filter(v => v !== "" && v !== null && v !== undefined && Number.isFinite(Number(v))).map(Number);
+}
 
-      dgSetHTML(
-        "dgFullReport",
-        "No report generated yet."
-      );
+function rwIsNumeric(column, rows = rwState.rows) {
+  const vals = rows.map(r => r[column]).filter(v => v !== "" && v !== null && v !== undefined);
+  return vals.length > 0 && vals.filter(v => Number.isFinite(Number(v))).length / vals.length >= 0.8;
+}
 
-      dgStatus("Dataset connected successfully");
+function rwMode(values) {
+  const counts = new Map();
+  values.filter(v => v !== "" && v !== null && v !== undefined).forEach(v => counts.set(v, (counts.get(v) || 0) + 1));
+  return [...counts.entries()].sort((a,b) => b[1] - a[1])[0]?.[0] ?? "";
+}
+
+function rwRefreshStats() {
+  const rows = rwState.rows, headers = rwState.headers;
+  const missing = rows.reduce((sum, row) => sum + headers.filter(h => row[h] === "" || row[h] === null || row[h] === undefined).length, 0);
+  if ($("rwRowsCount")) $("rwRowsCount").textContent = rows.length.toLocaleString();
+  if ($("rwColumnsCount")) $("rwColumnsCount").textContent = headers.length.toLocaleString();
+  if ($("rwMissingCount")) $("rwMissingCount").textContent = missing.toLocaleString();
+  const saved = !!localStorage.getItem("tasfiaResearchProject");
+  const completed = [saved, rows.length > 0, !!rwState.lastEDA, !!rwState.lastFeatures, !!rwState.lastExperiment].filter(Boolean).length;
+  const progress = Math.round(completed / 5 * 100);
+  if ($("rwProgressCount")) $("rwProgressCount").textContent = `${progress}%`;
+  if ($("rwProjectStatus")) $("rwProjectStatus").textContent = rows.length ? "Dataset connected" : "Workspace ready";
+}
+
+function rwRenderPreview() {
+  const wrap = $("rwPreviewWrap");
+  if (!wrap) return;
+  if (!rwState.rows.length) { wrap.innerHTML = '<div class="rw-empty">Upload a CSV file to see a preview here.</div>'; return; }
+  const heads = rwState.headers;
+  const sample = rwState.rows.slice(0, 8);
+  wrap.innerHTML = `<table class="rw-table"><thead><tr>${heads.map(h => `<th>${rwEscape(h)}</th>`).join("")}</tr></thead><tbody>${sample.map(row => `<tr>${heads.map(h => `<td>${rwEscape(row[h] === "" ? "Missing" : row[h])}</td>`).join("")}</tr>`).join("")}</tbody></table><div class="rw-table-foot">Showing ${sample.length} of ${rwState.rows.length} rows · ${heads.length} columns</div>`;
+}
+
+function rwPopulateSelectors() {
+  const numeric = rwState.headers.filter(h => rwIsNumeric(h));
+  const target = $("rwTarget"), chart = $("rwChartColumn");
+  if (target) target.innerHTML = rwState.headers.length ? rwState.headers.map(h => `<option value="${rwEscape(h)}">${rwEscape(h)}</option>`).join("") : '<option value="">Upload a dataset first</option>';
+  if (chart) chart.innerHTML = numeric.length ? numeric.map(h => `<option value="${rwEscape(h)}">${rwEscape(h)}</option>`).join("") : '<option value="">No numeric columns found</option>';
+}
+
+function rwUploadDataset(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = rwParseCSV(String(reader.result || ""));
+      rwState.headers = parsed.headers;
+      rwState.originalRows = parsed.rows.map(r => ({...r}));
+      rwState.rows = parsed.rows.map(r => ({...r}));
+      rwState.fileName = file.name;
+      rwState.lastExperiment = rwState.lastEDA = rwState.lastFeatures = null;
+      if ($("rwDatasetLabel")) $("rwDatasetLabel").textContent = `${file.name} · ${rwState.rows.length} rows · ${rwState.headers.length} columns`;
+      if ($("rwDatasetMessage")) $("rwDatasetMessage").textContent = "Dataset loaded locally. The original upload is preserved for reset.";
+      rwRenderPreview(); rwPopulateSelectors(); rwRefreshStats();
+      if ($("rwPreprocessMessage")) $("rwPreprocessMessage").textContent = "Dataset ready for preprocessing.";
+    } catch (error) {
+      if ($("rwDatasetMessage")) $("rwDatasetMessage").textContent = error.message;
     }
-  }, 100);
-});
+  };
+  reader.onerror = () => { if ($("rwDatasetMessage")) $("rwDatasetMessage").textContent = "Could not read this file."; };
+  reader.readAsText(file);
+}
 
-/* ---------- INITIALIZATION ---------- */
+function rwApplyPreprocessing() {
+  if (!rwState.rows.length) throw new Error("Upload a CSV dataset first.");
+  let rows = rwState.rows.map(r => ({...r}));
+  const strategy = $("rwMissingStrategy")?.value || "mean";
+  if (strategy === "drop") {
+    rows = rows.filter(row => rwState.headers.every(h => row[h] !== "" && row[h] !== null && row[h] !== undefined));
+  } else {
+    rwState.headers.forEach(h => {
+      const present = rows.map(r => r[h]).filter(v => v !== "" && v !== null && v !== undefined);
+      const numeric = rwIsNumeric(h, rows);
+      let fill = rwMode(present);
+      if (numeric) {
+        const nums = present.map(Number).filter(Number.isFinite).sort((a,b) => a-b);
+        if (nums.length) fill = strategy === "median" ? (nums.length % 2 ? nums[(nums.length-1)/2] : (nums[nums.length/2-1] + nums[nums.length/2])/2) : nums.reduce((a,b)=>a+b,0)/nums.length;
+      }
+      rows.forEach(r => { if (r[h] === "" || r[h] === null || r[h] === undefined) r[h] = String(fill); });
+    });
+  }
+  const scale = $("rwScaleMethod")?.value || "none";
+  if (scale !== "none") rwState.headers.filter(h => rwIsNumeric(h, rows)).forEach(h => {
+    const nums = rows.map(r => Number(r[h])).filter(Number.isFinite);
+    if (!nums.length) return;
+    const avg = nums.reduce((a,b)=>a+b,0)/nums.length;
+    const sd = Math.sqrt(nums.reduce((s,n)=>s+(n-avg)**2,0)/nums.length);
+    const min = Math.min(...nums), max = Math.max(...nums);
+    rows.forEach(r => {
+      const n = Number(r[h]);
+      if (!Number.isFinite(n)) return;
+      r[h] = String(scale === "minmax" ? (max === min ? 0 : (n-min)/(max-min)) : (sd === 0 ? 0 : (n-avg)/sd));
+    });
+  });
+  rwState.rows = rows;
+  rwRenderPreview(); rwPopulateSelectors(); rwRefreshStats();
+  if ($("rwPreprocessMessage")) $("rwPreprocessMessage").textContent = `Preprocessing applied. Current dataset: ${rows.length} rows. Original upload remains available through Reset.`;
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-  dgRefreshColumns();
-  dgRenderRules();
-});
+function rwRunEDA() {
+  if (!rwState.rows.length) throw new Error("Upload a CSV dataset first.");
+  const missingByColumn = rwState.headers.map(h => ({name:h, missing:rwState.rows.filter(r => r[h] === "" || r[h] == null).length, type:rwIsNumeric(h) ? "Numeric" : "Categorical / text"}));
+  const numeric = rwState.headers.filter(h => rwIsNumeric(h));
+  const stats = numeric.map(h => {
+    const vals = rwNumericValues(h).sort((a,b)=>a-b);
+    const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+    const med = vals.length % 2 ? vals[(vals.length-1)/2] : (vals[vals.length/2-1]+vals[vals.length/2])/2;
+    const sd = Math.sqrt(vals.reduce((s,n)=>s+(n-avg)**2,0)/vals.length);
+    return {h, count:vals.length, mean:avg, median:med, sd, min:vals[0], max:vals[vals.length-1]};
+  });
+  const duplicateCount = rwState.rows.length - new Set(rwState.rows.map(r => JSON.stringify(rwState.headers.map(h=>r[h])))).size;
+  const out = `<div class="rw-summary-line"><span>Rows <b>${rwState.rows.length}</b></span><span>Columns <b>${rwState.headers.length}</b></span><span>Numeric columns <b>${numeric.length}</b></span><span>Duplicate rows <b>${duplicateCount}</b></span></div><h4 class="rw-table-title">Numeric descriptive statistics</h4>${stats.length ? `<table class="rw-table"><thead><tr><th>Variable</th><th>Count</th><th>Mean</th><th>Median</th><th>Std. dev.</th><th>Min</th><th>Max</th></tr></thead><tbody>${stats.map(s=>`<tr><td>${rwEscape(s.h)}</td><td>${s.count}</td><td>${s.mean.toFixed(4)}</td><td>${s.median.toFixed(4)}</td><td>${s.sd.toFixed(4)}</td><td>${s.min}</td><td>${s.max}</td></tr>`).join("")}</tbody></table>` : '<div class="rw-empty">No numeric columns detected.</div>'}<h4 class="rw-table-title">Column profile</h4><table class="rw-table"><thead><tr><th>Column</th><th>Detected type</th><th>Missing values</th><th>Unique values</th></tr></thead><tbody>${missingByColumn.map(c=>`<tr><td>${rwEscape(c.name)}</td><td>${c.type}</td><td>${c.missing}</td><td>${new Set(rwState.rows.map(r=>r[c.name])).size}</td></tr>`).join("")}</tbody></table>`;
+  $("rwEDAOutput").innerHTML = out;
+  rwState.lastEDA = {rows:rwState.rows.length, columns:rwState.headers.length, duplicateCount, stats};
+  rwRefreshStats();
+}
+
+function rwRunFeatureSelection() {
+  if (!rwState.rows.length) throw new Error("Upload a CSV dataset first.");
+  const scores = rwState.headers.filter(h=>rwIsNumeric(h)).map(h=>{
+    const v=rwNumericValues(h), avg=v.reduce((a,b)=>a+b,0)/v.length;
+    return {name:h, variance:v.reduce((s,n)=>s+(n-avg)**2,0)/v.length, unique:new Set(v).size};
+  }).sort((a,b)=>b.variance-a.variance);
+  $("rwFeatureOutput").innerHTML = scores.length ? `<table class="rw-table"><thead><tr><th>Rank</th><th>Feature</th><th>Variance score</th><th>Unique values</th></tr></thead><tbody>${scores.map((s,i)=>`<tr><td>${i+1}</td><td>${rwEscape(s.name)}</td><td>${s.variance.toFixed(6)}</td><td>${s.unique}</td></tr>`).join("")}</tbody></table><p class="rw-note">Higher variance means the feature has more spread. Check data leakage, relevance and statistical assumptions before final selection.</p>` : '<div class="rw-empty">No numeric features available for variance ranking.</div>';
+  rwState.lastFeatures=scores; rwRefreshStats();
+}
+
+function rwPrepareExperiment() {
+  if (!rwState.rows.length) throw new Error("Upload a CSV dataset first.");
+  const target=$("rwTarget")?.value;
+  if (!target || !rwState.headers.includes(target)) throw new Error("Select a target variable first.");
+  const testPct=Number($("rwTestSize")?.value || 25), testCount=Math.max(1,Math.ceil(rwState.rows.length*testPct/100));
+  const model=$("rwModelName")?.value || "Custom model", type=$("rwModelType")?.value || "classification";
+  const features=rwState.headers.filter(h=>h!==target);
+  const result={target,model,type,testPct,trainCount:Math.max(0,rwState.rows.length-testCount),testCount,features};
+  rwState.lastExperiment=result;
+  $("rwModelOutput").innerHTML=`<strong>Experiment prepared</strong><ul><li>Model / architecture: ${rwEscape(model)}</li><li>Experiment type: ${rwEscape(type)}</li><li>Target: ${rwEscape(target)}</li><li>Candidate input features: ${features.length}</li><li>Training rows: ${result.trainCount}</li><li>Testing rows: ${result.testCount}</li></ul><p>This is a reproducible experiment setup only. No model was trained in the browser. Connect a Python backend to execute ${type === "dl-plan" ? "deep-learning" : "machine-learning"} training.</p>`;
+  if ($("rwModelMessage")) $("rwModelMessage").textContent="Experiment configuration saved in this session.";
+  rwRefreshStats();
+}
+
+function rwEvaluate() {
+  const actual=($("rwActual")?.value || "").split(",").map(s=>s.trim()).filter(Boolean);
+  const predicted=($("rwPredicted")?.value || "").split(",").map(s=>s.trim()).filter(Boolean);
+  if (!actual.length || actual.length!==predicted.length) throw new Error("Enter the same number of actual and predicted values.");
+  const numeric=actual.every(v=>Number.isFinite(Number(v))) && predicted.every(v=>Number.isFinite(Number(v)));
+  let html="";
+  if (numeric) {
+    const a=actual.map(Number), p=predicted.map(Number), n=a.length;
+    const mae=a.reduce((s,v,i)=>s+Math.abs(v-p[i]),0)/n;
+    const mse=a.reduce((s,v,i)=>s+(v-p[i])**2,0)/n;
+    const rmse=Math.sqrt(mse), avg=a.reduce((s,v)=>s+v,0)/n;
+    const ssTot=a.reduce((s,v)=>s+(v-avg)**2,0), ssRes=a.reduce((s,v,i)=>s+(v-p[i])**2,0);
+    const r2=ssTot===0?NaN:1-ssRes/ssTot;
+    html=`<div class="rw-summary-line"><span>MAE <b>${mae.toFixed(5)}</b></span><span>MSE <b>${mse.toFixed(5)}</b></span><span>RMSE <b>${rmse.toFixed(5)}</b></span><span>R² <b>${Number.isFinite(r2)?r2.toFixed(5):"Undefined"}</b></span></div>`;
+  } else {
+    const correct=actual.filter((v,i)=>v===predicted[i]).length, accuracy=correct/actual.length;
+    const labels=[...new Set(actual)];
+    const rows=labels.map(label=>{const tp=actual.filter((v,i)=>v===label&&predicted[i]===label).length;const fp=actual.filter((v,i)=>v!==label&&predicted[i]===label).length;const fn=actual.filter((v,i)=>v===label&&predicted[i]!==label).length;const precision=tp+fp?tp/(tp+fp):0;const recall=tp+fn?tp/(tp+fn):0;return {label,precision,recall,f1:precision+recall?2*precision*recall/(precision+recall):0};});
+    html=`<div class="rw-summary-line"><span>Accuracy <b>${(accuracy*100).toFixed(2)}%</b></span><span>Correct <b>${correct}/${actual.length}</b></span></div><table class="rw-table"><thead><tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1-score</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${rwEscape(r.label)}</td><td>${r.precision.toFixed(4)}</td><td>${r.recall.toFixed(4)}</td><td>${r.f1.toFixed(4)}</td></tr>`).join("")}</tbody></table>`;
+  }
+  $("rwEvaluationOutput").innerHTML=html;
+}
+
+function rwCorrelation(x,y) {
+  const n=Math.min(x.length,y.length); if(n<2)return 0;
+  const ax=x.slice(0,n), by=y.slice(0,n), mx=ax.reduce((a,b)=>a+b,0)/n, my=by.reduce((a,b)=>a+b,0)/n;
+  const num=ax.reduce((s,v,i)=>s+(v-mx)*(by[i]-my),0), dx=Math.sqrt(ax.reduce((s,v)=>s+(v-mx)**2,0)), dy=Math.sqrt(by.reduce((s,v)=>s+(v-my)**2,0));
+  return dx&&dy?num/(dx*dy):0;
+}
+
+function rwExplain() {
+  if(!rwState.rows.length) throw new Error("Upload a CSV dataset first.");
+  const target=$("rwTarget")?.value;
+  const rows=rwState.headers.filter(h=>h!==target&&rwIsNumeric(h)).map(h=>{
+    const vals=rwNumericValues(h), avg=vals.reduce((a,b)=>a+b,0)/vals.length, variance=vals.reduce((s,n)=>s+(n-avg)**2,0)/vals.length;
+    let corr="Not available";
+    if(target&&rwIsNumeric(target)){const pairs=rwState.rows.filter(r=>r[h]!==""&&r[target]!=="");corr=rwCorrelation(pairs.map(r=>Number(r[h])),pairs.map(r=>Number(r[target]))).toFixed(4);}
+    return {h,variance,corr};
+  }).sort((a,b)=>b.variance-a.variance);
+  $("rwExplainOutput").innerHTML=rows.length?`<table class="rw-table"><thead><tr><th>Feature</th><th>Variance</th><th>Correlation with target</th><th>Interpretation</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${rwEscape(r.h)}</td><td>${r.variance.toFixed(5)}</td><td>${r.corr}</td><td>${r.corr==="Not available"?"Descriptive spread only":`Linear association: ${Number(r.corr)>=0?"positive":"negative"}`}</td></tr>`).join("")}</tbody></table><p class="rw-note">Correlation describes association only; it does not prove causation or provide model-level feature attribution.</p>`:'<div class="rw-empty">No numeric input features available.</div>';
+}
+
+function rwDrawChart() {
+  if(!rwState.rows.length) throw new Error("Upload a CSV dataset first.");
+  const col=$("rwChartColumn")?.value, canvas=$("rwChartCanvas"), ctx=canvas?.getContext("2d");
+  if(!col||!ctx) throw new Error("Choose a numeric variable first.");
+  const values=rwNumericValues(col); if(!values.length) throw new Error("The selected variable has no numeric values.");
+  const w=canvas.width,h=canvas.height,pad=42; ctx.clearRect(0,0,w,h); ctx.fillStyle="#111a17";ctx.fillRect(0,0,w,h);ctx.strokeStyle="#34463e";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad,15);ctx.lineTo(pad,h-pad);ctx.lineTo(w-12,h-pad);ctx.stroke();ctx.fillStyle="#c6d4cd";ctx.font="13px Inter, sans-serif";ctx.fillText(col,pad,22);
+  const type=$("rwChartType")?.value;
+  if(type==="bar"){
+    const data=values.slice(0,20), max=Math.max(...data,1), gap=6, bw=(w-pad-25)/data.length-gap;
+    data.forEach((v,i)=>{const bh=(h-pad-65)*(v/max);ctx.fillStyle="#19d6b0";ctx.fillRect(pad+8+i*(bw+gap),h-pad-bh,bw,bh);});
+  }else{
+    const min=Math.min(...values),max=Math.max(...values),bins=10,counts=Array(bins).fill(0);
+    values.forEach(v=>{const idx=max===min?0:Math.min(bins-1,Math.floor((v-min)/(max-min)*bins));counts[idx]++;});
+    const top=Math.max(...counts,1),gap=5,bw=(w-pad-25)/bins-gap;
+    counts.forEach((v,i)=>{const bh=(h-pad-65)*(v/top);ctx.fillStyle="#19d6b0";ctx.fillRect(pad+8+i*(bw+gap),h-pad-bh,bw,bh);});
+  }
+  if($("rwChartMessage")) $("rwChartMessage").textContent=`${type==="bar"?"First 20 values":"10-bin distribution"} for ${col} · ${values.length} numeric observations.`;
+}
+
+function rwGenerateReport() {
+  const title=$("rwTopic")?.value.trim()||"Untitled Research Project", field=$("rwField")?.value.trim()||"Not specified", status=$("rwStatusSelect")?.value||"Planning";
+  const objectives=$("rwObjectives")?.value.trim()||"Not provided", notes=$("rwNotes")?.value.trim()||"Not provided";
+  const rows=rwState.rows.length, cols=rwState.headers.length, missing=rwState.rows.reduce((s,r)=>s+rwState.headers.filter(h=>r[h]===""||r[h]==null).length,0);
+  const exp=rwState.lastExperiment;
+  const report=`RESEARCH WORKSPACE REPORT\n========================\n\nProject title: ${title}\nResearch field: ${field}\nProject status: ${status}\nGenerated: ${new Date().toLocaleString()}\n\nRESEARCH OBJECTIVES\n${objectives}\n\nRESEARCH NOTES / HYPOTHESIS\n${notes}\n\nDATASET PROFILE\nFile: ${rwState.fileName||"No dataset uploaded"}\nRows: ${rows}\nColumns: ${cols}\nMissing cells: ${missing}\nColumn names: ${rwState.headers.join(", ")||"None"}\n\nPREPROCESSING SETTINGS\nMissing value strategy: ${$("rwMissingStrategy")?.selectedOptions[0]?.textContent||"Not selected"}\nScaling: ${$("rwScaleMethod")?.selectedOptions[0]?.textContent||"Not selected"}\n\nEXPERIMENT CONFIGURATION\n${exp?`Model: ${exp.model}\nType: ${exp.type}\nTarget: ${exp.target}\nTrain rows: ${exp.trainCount}\nTest rows: ${exp.testCount}`:"No experiment configuration prepared."}\n\nANALYSIS CHECKLIST\nEDA generated: ${rwState.lastEDA?"Yes":"No"}\nFeature ranking generated: ${rwState.lastFeatures?"Yes":"No"}\nExperiment prepared: ${exp?"Yes":"No"}\n\nNOTE\nThis report summarizes information entered or processed in the browser-based Research Workspace. Validate all analyses and add methods, references, limitations and results before using it as an academic thesis report.\n`;
+  if($("rwReportPreview")) $("rwReportPreview").textContent=report;
+  const blob=new Blob([report],{type:"text/plain;charset=utf-8"}), url=URL.createObjectURL(blob), a=document.createElement("a");a.href=url;a.download="research-workspace-report.txt";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  if($("rwReportMessage")) $("rwReportMessage").textContent="Research report generated and downloaded.";
+}
+
+function rwSaveProject() {
+  const data={topic:$("rwTopic")?.value||"",field:$("rwField")?.value||"",status:$("rwStatusSelect")?.value||"Planning",objectives:$("rwObjectives")?.value||"",notes:$("rwNotes")?.value||""};
+  localStorage.setItem("tasfiaResearchProject",JSON.stringify(data));
+  if($("rwProjectHeading")) $("rwProjectHeading").textContent=data.topic.trim()||"Your Research Project";
+  if($("rwProjectSubheading")) $("rwProjectSubheading").textContent=data.field?`${data.field} · ${data.status}`:"Plan your research, inspect data and document your experiments in one place.";
+  if($("rwProjectMessage")) $("rwProjectMessage").textContent="Project details saved successfully in this browser.";
+  rwRefreshStats();
+}
+
+function rwLoadProject() {
+  try {
+    const data=JSON.parse(localStorage.getItem("tasfiaResearchProject")||"{}");
+    ["Topic","Field","StatusSelect","Objectives","Notes"].forEach((key)=>{const id="rw"+key, prop=({Topic:"topic",Field:"field",StatusSelect:"status",Objectives:"objectives",Notes:"notes"})[key];if($(id)&&data[prop]!==undefined)$(id).value=data[prop];});
+    if($("rwProjectHeading")) $("rwProjectHeading").textContent=data.topic||"Your Research Project";
+    if($("rwProjectSubheading")) $("rwProjectSubheading").textContent=data.field?`${data.field} · ${data.status||"Planning"}`:"Plan your research, inspect data and document your experiments in one place.";
+  } catch (_) {}
+}
+
+$("rwDatasetFile")?.addEventListener("change", event => { const file=event.target.files?.[0]; if(file) rwUploadDataset(file); });
+$("rwClearDataset")?.addEventListener("click", () => { rwState.originalRows=[];rwState.rows=[];rwState.headers=[];rwState.fileName="";rwState.lastEDA=rwState.lastFeatures=rwState.lastExperiment=null;if($("rwDatasetFile"))$("rwDatasetFile").value="";if($("rwDatasetLabel"))$("rwDatasetLabel").textContent="No research dataset uploaded";rwRenderPreview();rwPopulateSelectors();rwRefreshStats();if($("rwDatasetMessage"))$("rwDatasetMessage").textContent="Research dataset cleared. Other project details remain saved."; });
+$("rwApplyPreprocess")?.addEventListener("click",()=>{try{rwApplyPreprocessing();}catch(e){if($("rwPreprocessMessage"))$("rwPreprocessMessage").textContent=e.message;}});
+$("rwResetPreprocess")?.addEventListener("click",()=>{if(!rwState.originalRows.length){if($("rwPreprocessMessage"))$("rwPreprocessMessage").textContent="Upload a dataset first.";return;}rwState.rows=rwState.originalRows.map(r=>({...r}));rwRenderPreview();rwPopulateSelectors();rwRefreshStats();if($("rwPreprocessMessage"))$("rwPreprocessMessage").textContent="Restored the original uploaded dataset.";});
+$("rwRunEDA")?.addEventListener("click",()=>{try{rwRunEDA();}catch(e){if($("rwEDAMessage"))$("rwEDAMessage").textContent=e.message;}});
+$("rwRunFeatures")?.addEventListener("click",()=>{try{rwRunFeatureSelection();}catch(e){if($("rwFeatureOutput"))$("rwFeatureOutput").textContent=e.message;}});
+$("rwRunModel")?.addEventListener("click",()=>{try{rwPrepareExperiment();}catch(e){if($("rwModelMessage"))$("rwModelMessage").textContent=e.message;}});
+$("rwEvaluate")?.addEventListener("click",()=>{try{rwEvaluate();}catch(e){if($("rwEvaluationOutput"))$("rwEvaluationOutput").textContent=e.message;}});
+$("rwRunExplain")?.addEventListener("click",()=>{try{rwExplain();}catch(e){if($("rwExplainOutput"))$("rwExplainOutput").textContent=e.message;}});
+$("rwDrawChart")?.addEventListener("click",()=>{try{rwDrawChart();}catch(e){if($("rwChartMessage"))$("rwChartMessage").textContent=e.message;}});
+$("rwGenerateReport")?.addEventListener("click",()=>{try{rwGenerateReport();}catch(e){if($("rwReportMessage"))$("rwReportMessage").textContent=e.message;}});
+$("rwSaveProject")?.addEventListener("click",rwSaveProject);
+document.addEventListener("DOMContentLoaded",()=>{rwLoadProject();rwPopulateSelectors();rwRefreshStats();});
