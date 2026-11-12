@@ -729,3 +729,455 @@ select:focus {
   filter: brightness(1.12);
   transform: translateY(-2px);
 }
+
+
+
+/* =========================================
+   ADVANCED DATA SCIENCE ENGINE
+   Keeps the existing Graphite + Teal theme
+========================================= */
+.advanced-engine {
+  margin-top: 24px;
+  padding: 22px;
+  background: linear-gradient(145deg, #202b27, #18211e);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  box-shadow: var(--glow);
+}
+.engine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.engine-header h3 {
+  margin: 5px 0;
+  font-size: 16px;
+  color: var(--text);
+}
+.engine-header p, .engine-control p {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+.engine-label {
+  color: var(--primary);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.quality-card {
+  background: #111a17;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 15px;
+  min-width: 0;
+}
+.quality-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  margin-bottom: 9px;
+}
+.quality-card strong {
+  color: var(--primary);
+  font-size: 23px;
+  overflow-wrap: anywhere;
+}
+.quality-card small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  margin-top: 5px;
+}
+.quality-progress {
+  height: 9px;
+  background: #101815;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 10px 0 18px;
+  border: 1px solid var(--border);
+}
+.quality-progress div {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #0ca88d, #19d6b0);
+  border-radius: inherit;
+  transition: width .4s ease;
+}
+.engine-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.engine-control {
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: rgba(17, 26, 23, .7);
+  min-width: 0;
+}
+.engine-control h4, .engine-chart-card h4 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 12px;
+}
+.engine-control select {
+  margin: 9px 0;
+  width: 100%;
+}
+.engine-control button {
+  margin-top: 5px;
+}
+.engine-report {
+  padding: 15px;
+  background: rgba(25, 214, 176, .055);
+  border: 1px solid rgba(25, 214, 176, .19);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  margin-top: 14px;
+}
+.engine-report:empty { display: none; }
+.engine-report table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+  margin-top: 10px;
+}
+.engine-report th, .engine-report td {
+  padding: 9px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.engine-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+  margin-top: 18px;
+}
+.engine-chart-card {
+  min-width: 0;
+  padding: 15px;
+  background: #111a17;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+}
+.engine-chart-card canvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 230px;
+}
+.engine-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 15px;
+}
+.engine-actions button {
+  border: 1px solid rgba(25, 214, 176, .25);
+  background: rgba(25, 214, 176, .09);
+  color: #45e9c4;
+  border-radius: 8px;
+  padding: 10px 13px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.engine-actions button:hover {
+  background: rgba(25, 214, 176, .18);
+}
+.engine-note {
+  margin-top: 13px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.6;
+}
+@media (max-width: 900px) {
+  .quality-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .engine-controls, .engine-chart-grid { grid-template-columns: 1fr; }
+  .advanced-engine { padding: 15px; }
+}
+
+/* =========================================
+   DATAGUARD - INTELLIGENT QUALITY PLATFORM
+   Existing Graphite + Teal + Copper Theme
+========================================= */
+
+.dataguard-engine {
+  position: relative;
+  overflow: hidden;
+}
+
+.dg-live-status {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 9px;
+  color: var(--primary);
+  background: rgba(25, 214, 176, .09);
+  border: 1px solid rgba(25, 214, 176, .22);
+}
+
+.dg-intro {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 17px;
+  border: 1px solid rgba(25, 214, 176, .2);
+  border-radius: 12px;
+  background: linear-gradient(
+    110deg,
+    rgba(25, 214, 176, .09),
+    rgba(217, 154, 100, .05)
+  );
+}
+
+.dg-intro-icon {
+  width: 43px;
+  height: 43px;
+  min-width: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(25, 214, 176, .13);
+  color: var(--primary);
+  font-size: 23px;
+}
+
+.dg-intro h4 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.dg-intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.dg-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.dg-metric {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #111a17;
+}
+
+.dg-metric span,
+.dg-metric small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.dg-metric strong {
+  display: block;
+  margin: 9px 0 5px;
+  color: var(--primary);
+  font-size: 25px;
+  overflow-wrap: anywhere;
+}
+
+.dg-score-area {
+  margin: 18px 0;
+}
+
+.dg-score-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--text);
+  font-size: 10px;
+}
+
+.dg-score-heading span {
+  color: var(--primary);
+}
+
+.dg-action-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 20px 0;
+  padding: 17px;
+  border-radius: 12px;
+  background: #111a17;
+  border: 1px solid var(--border);
+}
+
+.dg-action-panel h4,
+.dg-section-title h4,
+.dg-result-card h4 {
+  margin: 0 0 7px;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.dg-action-panel p,
+.dg-section-title p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.dg-rule-panel,
+.dg-result-card,
+.dg-report-card {
+  margin-top: 16px;
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(17, 26, 23, .75);
+}
+
+.dg-section-title {
+  margin-bottom: 15px;
+}
+
+.dg-rule-inputs {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 12px;
+}
+
+.dg-rule-inputs label {
+  display: block;
+  margin: 8px 0;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.dg-rule-inputs input,
+.dg-rule-inputs select {
+  width: 100%;
+}
+
+.dg-rules-list {
+  margin-top: 13px;
+}
+
+.dg-rule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px;
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #1b2722;
+  color: var(--text);
+  font-size: 10px;
+}
+
+.dg-rule-item button {
+  border: 1px solid rgba(217, 154, 100, .3);
+  background: rgba(217, 154, 100, .08);
+  color: #e6b58d;
+  border-radius: 7px;
+  padding: 6px 9px;
+  font-size: 9px;
+}
+
+.dg-rules-list > p {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.dg-results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 17px;
+}
+
+.dg-report {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.dg-report ul {
+  padding-left: 18px;
+}
+
+.dg-report li {
+  margin: 5px 0;
+}
+
+.dg-report strong {
+  color: var(--text);
+}
+
+.dg-report .dg-good {
+  color: #39dfb9;
+}
+
+.dg-report .dg-warning {
+  color: #e6b58d;
+}
+
+.dg-report .dg-danger {
+  color: #f08a91;
+}
+
+.dg-report-card {
+  margin-top: 17px;
+}
+
+.dg-footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .dg-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .dg-rule-inputs,
+  .dg-results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dg-action-panel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dg-footer-actions .btn {
+    width: 100%;
+  }
+}
